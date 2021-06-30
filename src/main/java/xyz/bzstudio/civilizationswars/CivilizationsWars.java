@@ -12,6 +12,10 @@ import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import xyz.bzstudio.civilizationswars.block.BlockList;
 import xyz.bzstudio.civilizationswars.item.ItemList;
 
+/**
+ * @author BinZhengStudio
+ */
+
 @Mod(CivilizationsWars.MODID)
 public class CivilizationsWars {
 	public static final String MODID = "civilizationswars";

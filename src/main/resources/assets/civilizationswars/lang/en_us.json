@@ -1,4 +1,9 @@
 {
-  "block.civilizationswars.ceramics_maker": "Ceramics Maker",
-  "button.ceramics_maker.model_1": ""
+  "block.civilizationswars.ceramics_maker": "陶模捏制机",
+  "button.ceramics_maker.model_1": "",
+  "tooltip.ceramics_maker.button.model_1": "?????",
+  "block.civilizationswars.copper_ore":"Copper Ore",
+  "item.civilizationswars.copper_ingot":"Copper Ingot" ,
+  "item.civilizationswars.ceramics_cylinder":"Ceramic Tube",
+  "block.civilizationswars.copper_block":"Block of Copper"
 }

@@ -1,5 +1,9 @@
 {
   "block.civilizationswars.ceramics_maker": "陶模捏制机",
   "button.ceramics_maker.model_1": "",
-  "tooltip.ceramics_maker.button.model_1": "陶瓷筒：可用于制造线圈"
+  "tooltip.ceramics_maker.button.model_1": "陶瓷筒：可用于制造线圈",
+  "block.civilizationswars.copper_ore": "铜矿石",
+  "item.civilizationswars.copper_ingot": "铜锭" ,
+  "block.civilizationswars.copper_block": "铜块",
+  "item.civilizationswars.ceramics_cylinder": "陶瓷筒"
 }

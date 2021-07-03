@@ -10,7 +10,7 @@ import xyz.bzstudio.civilizationswars.CivilizationsWars;
 
 public class ContainerTypeList {
 	public static final DeferredRegister<ContainerType<?>> CONTAINER_TYPE = DeferredRegister.create(ForgeRegistries.CONTAINERS, CivilizationsWars.MODID);
-	public static final ContainerType<CeramicsMakerContainer> CERAMICS_MAKER = register("ceramics_maker", CeramicsMakerContainer::new);
+	public static final ContainerType<CeramicsMakerContainer> CERAMICS_MAKER = register("ceramics_maker", ((windowId, inv, data) -> new CeramicsMakerContainer(windowId, inv, data.readBlockPos())));
 
 	private static <T extends Container> ContainerType<T> register(String name, IContainerFactory<T> factory) {
 		ContainerType<T> type = IForgeContainerType.create(factory);

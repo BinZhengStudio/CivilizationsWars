@@ -1,5 +1,6 @@
 package xyz.bzstudio.civilizationswars;
 
+import net.minecraft.client.gui.ScreenManager;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
@@ -8,8 +9,10 @@ import net.minecraftforge.fml.event.lifecycle.InterModEnqueueEvent;
 import net.minecraftforge.fml.event.lifecycle.InterModProcessEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import xyz.bzstudio.civilizationswars.block.BlockList;
+import xyz.bzstudio.civilizationswars.client.gui.screen.CeramicsMakerScreen;
 import xyz.bzstudio.civilizationswars.inventory.container.ContainerTypeList;
 import xyz.bzstudio.civilizationswars.item.ItemList;
+import xyz.bzstudio.civilizationswars.network.NetworkManager;
 import xyz.bzstudio.civilizationswars.tileentity.TileEntityTypeList;
 
 /**
@@ -34,9 +37,13 @@ public class CivilizationsWars {
 	}
 
 	private void setup(final FMLCommonSetupEvent event) {
+//		event.enqueueWork(NetworkManager::registerMessage);
 	}
 
 	private void doClientStuff(final FMLClientSetupEvent event) {
+		event.enqueueWork(() -> {
+			ScreenManager.registerFactory(ContainerTypeList.CERAMICS_MAKER, CeramicsMakerScreen::new);
+		});
 	}
 
 	private void enqueueIMC(final InterModEnqueueEvent event) {

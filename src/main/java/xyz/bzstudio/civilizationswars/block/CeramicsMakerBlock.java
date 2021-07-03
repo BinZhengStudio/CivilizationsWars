@@ -4,6 +4,7 @@ import net.minecraft.block.*;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.state.BooleanProperty;
@@ -16,7 +17,7 @@ import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.IWorld;
 import net.minecraft.world.World;
-import xyz.bzstudio.civilizationswars.client.gui.screen.ScreenOpener;
+import net.minecraftforge.fml.network.NetworkHooks;
 import xyz.bzstudio.civilizationswars.tileentity.CeramicsMakerTileEntity;
 
 import javax.annotation.Nullable;
@@ -31,29 +32,31 @@ public class CeramicsMakerBlock extends ContainerBlock {
 
 	@Override
 	public ActionResultType onBlockActivated(BlockState state, World worldIn, BlockPos pos, PlayerEntity player, Hand handIn, BlockRayTraceResult hit) {
-		if (!worldIn.isRemote) {
+		if (!worldIn.isRemote && state.getBlock() == this) {
 			ItemStack heldItem = player.getHeldItem(handIn);
 			// 检测玩家手持物品，方块是否正确以及方块上是否已经放置黏土
-			if (heldItem.getItem() == Items.CLAY_BALL && state.getBlock() == this && !state.get(PLACED_CLAY)) {
+			if (heldItem.getItem() == Items.CLAY_BALL && !state.get(PLACED_CLAY)) {
 				worldIn.setBlockState(pos, this.getDefaultState().with(PLACED_CLAY, true));
 				if (!player.isCreative()) { // 检测玩家是不是创造模式
 					heldItem.shrink(1);
 				}
-				return ActionResultType.SUCCESS;
+			} else if (state.get(PLACED_CLAY) && handIn == Hand.MAIN_HAND) {
+				CeramicsMakerTileEntity tileEntity = (CeramicsMakerTileEntity) worldIn.getTileEntity(pos);
+				NetworkHooks.openGui((ServerPlayerEntity) player, tileEntity, (buf) -> {
+					buf.writeBlockPos(tileEntity.getPos());
+				});
+				if (tileEntity.getInventory().getStackInSlot(0).isEmpty()) {
+					tileEntity.getInventory().setInventorySlotContents(0,new ItemStack(Items.CLAY_BALL));
+				}
 			}
-		} else {
-			if (state.get(PLACED_CLAY)) {
-				ScreenOpener.ceramicsMaker(); // TODO 以后会改成Container
-				return ActionResultType.SUCCESS;
-			}
+			return ActionResultType.SUCCESS;
 		}
-		return ActionResultType.FAIL;
+		return ActionResultType.CONSUME;
 	}
 
 	@Override
-	public void onPlayerDestroy(IWorld worldIn, BlockPos pos, BlockState state) {
+	public void onPlayerDestroy(IWorld worldIn, BlockPos pos, BlockState state) { // 把玩家放置的黏土掉落出来
 		if (!worldIn.isRemote() && state.getBlock() == this && state.get(PLACED_CLAY)) {
-			// 把玩家放置的黏土掉落出来
 			worldIn.addEntity(new ItemEntity((World) worldIn, pos.getX(), pos.getY(), pos.getZ(), new ItemStack(Items.CLAY_BALL)));
 		}
 	}

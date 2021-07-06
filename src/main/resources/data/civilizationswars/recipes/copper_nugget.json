@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "civilizationswars:copper_ingot"
+    }
+  ],
+  "result": {
+    "item": "civilizationswars:copper_nugget",
+    "count": 9
+  }
+}

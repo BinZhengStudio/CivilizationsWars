@@ -1,0 +1,9 @@
+{
+  "type": "minecraft:smelting",
+  "ingredient": {
+    "item": "civilizationswars:ceramics_cylinder_model"
+  },
+  "result": "civilizationswars:ceramics_cylinder",
+  "experience": 0.7,
+  "cookingtime": 200
+}

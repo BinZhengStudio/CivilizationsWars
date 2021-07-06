@@ -1,13 +1,10 @@
 package xyz.bzstudio.civilizationswars.inventory.container;
 
-import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.inventory.Inventory;
 import net.minecraft.inventory.container.ClickType;
 import net.minecraft.inventory.container.Container;
-
 import net.minecraft.inventory.container.Slot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockPos;
@@ -20,7 +17,7 @@ public class CeramicsMakerContainer extends Container {
 	public CeramicsMakerContainer(int id, PlayerInventory playerInventory, BlockPos pos) {
 		super(ContainerTypeList.CERAMICS_MAKER, id);
 		CeramicsMakerTileEntity tileEntity = (CeramicsMakerTileEntity) playerInventory.player.world.getTileEntity(pos);
-		this.addSlot(new SelectSlot(new ItemStack(ItemList.CERAMICS_CYLINDER), 12, 20) {
+		this.addSlot(new SelectSlot(new ItemStack(ItemList.CERAMICS_CYLINDER_MODEL), 12, 20) {
 			@Override
 			public void onClick(PlayerEntity player) {
 				BlockState state = player.world.getBlockState(pos);

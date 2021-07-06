@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "#X#"
+  ],
+  "key": {
+    "#": {
+      "item": "civilizationswars:copper_wire"
+    },
+    "X": {
+      "item": "civilizationswars:ceramics_cylinder"
+    }
+  },
+  "result": {
+    "item": "civilizationswars:coil"
+  }
+}

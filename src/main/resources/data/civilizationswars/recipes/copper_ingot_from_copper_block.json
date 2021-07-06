@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "group": "copper_ingot",
+  "ingredients": [
+    {
+      "item": "civilizationswars:copper_block"
+    }
+  ],
+  "result": {
+    "item": "civilizationswars:copper_ingot",
+    "count": 9
+  }
+}

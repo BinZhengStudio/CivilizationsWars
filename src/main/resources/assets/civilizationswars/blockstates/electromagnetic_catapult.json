@@ -1,0 +1,29 @@
+{
+  "variants": {
+    "facing=east": {
+      "model": "civilizationswars:block/electromagnetic_catapult",
+      "x": 90,
+      "y": 90
+    },
+    "facing=west": {
+      "model": "civilizationswars:block/electromagnetic_catapult",
+      "x": 90,
+      "y": 270
+    },
+    "facing=south": {
+      "model": "civilizationswars:block/electromagnetic_catapult",
+      "x": 270
+    },
+    "facing=north": {
+      "model": "civilizationswars:block/electromagnetic_catapult",
+      "x": 90
+    },
+    "facing=up": {
+      "model": "civilizationswars:block/electromagnetic_catapult"
+    },
+    "facing=down": {
+      "model": "civilizationswars:block/electromagnetic_catapult",
+      "x": 180
+    }
+  }
+}

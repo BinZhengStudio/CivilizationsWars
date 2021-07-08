@@ -41,13 +41,13 @@ public class ElectromagneticCatapultBlock extends Block {
 	}
 
 	@Override
-	public boolean hasTileEntity(BlockState state) {
+	public boolean hasTileEntity(BlockState state) { // TODO
 		return true;
 	}
 
 	@Nullable
 	@Override
-	public TileEntity createTileEntity(BlockState state, IBlockReader world) {
+	public TileEntity createTileEntity(BlockState state, IBlockReader world) { // TODO
 		return new ElectromagneticCatapultTileEntity();
 	}
 

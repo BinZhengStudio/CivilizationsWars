@@ -1,4 +1,5 @@
 {
+	"parent": "minecraft:block/block",
 	"texture_size": [32, 32],
 	"textures": {
 		"0": "civilizationswars:block/electromagnetic_catapult",
@@ -57,32 +58,5 @@
 				"down": {"uv": [10.5, 13.5, 16, 16], "rotation": 90, "texture": "#0"}
 			}
 		}
-	],
-	"display": {
-		"thirdperson_righthand": {
-			"scale": [0.3, 0.3, 0.3]
-		},
-		"thirdperson_lefthand": {
-			"scale": [0.3, 0.3, 0.3]
-		},
-		"firstperson_righthand": {
-			"scale": [0.3, 0.3, 0.3]
-		},
-		"firstperson_lefthand": {
-			"scale": [0.3, 0.3, 0.3]
-		},
-		"ground": {
-			"scale": [0.3, 0.3, 0.3]
-		},
-		"gui": {
-			"rotation": [35, -34, 0],
-			"scale": [0.5, 0.5, 0.5]
-		},
-		"head": {
-			"scale": [0.3, 0.3, 0.3]
-		},
-		"fixed": {
-			"scale": [0.5, 0.5, 0.5]
-		}
-	}
+	]
 }

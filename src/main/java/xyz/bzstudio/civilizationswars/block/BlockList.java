@@ -15,6 +15,7 @@ public class BlockList {
 	public static final Block COPPER_BLOCK = register("copper_block", new Block(AbstractBlock.Properties.create(Material.IRON).setRequiresTool().hardnessAndResistance(5.0F, 6.0F).sound(SoundType.METAL)));
 	public static final Block CERAMICS_MAKER = register("ceramics_maker", new CeramicsMakerBlock());
 	public static final Block ELECTROMAGNETIC_CATAPULT = register("electromagnetic_catapult", new ElectromagneticCatapultBlock());
+	public static final Block OBJECT_COMPRESSOR_BLOCK = register("object_compressor_block", new ObjectCompressorBlock());
 
 	private static Block register(String name, Block block) {
 		BLOCKS.register(name, () -> block);

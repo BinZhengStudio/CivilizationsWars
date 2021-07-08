@@ -61,7 +61,28 @@ public class CeramicsMakerContainer extends Container {
 
 	@Override
 	public ItemStack transferStackInSlot(PlayerEntity playerIn, int index) {
-		return ItemStack.EMPTY; // TODO 以后再改
+		ItemStack itemStack = ItemStack.EMPTY;
+		Slot slot = this.inventorySlots.get(index);
+		if (slot != null && slot.getHasStack()) {
+			ItemStack itemStack1 = slot.getStack();
+			itemStack = itemStack1.copy();
+			if (index < 2) {
+				if (!this.mergeItemStack(itemStack1, 2, this.inventorySlots.size(), true)) {
+					return ItemStack.EMPTY;
+				}
+			} else if (!this.mergeItemStack(itemStack1, 2, this.inventorySlots.size(), false)) {
+				return ItemStack.EMPTY;
+			}
+
+			if (itemStack1.isEmpty()) {
+				slot.putStack(ItemStack.EMPTY);
+				slot.onTake(playerIn, itemStack);
+			} else {
+				slot.onSlotChanged();
+			}
+		}
+
+		return itemStack;
 	}
 
 	@Override

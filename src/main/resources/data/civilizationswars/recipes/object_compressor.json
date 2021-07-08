@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "#X#",
+    "X$X",
+    "#X#"
+  ],
+  "key": {
+    "#": {
+      "item": "minecraft:iron_ingot"
+    },
+    "X": {
+      "item": "minecraft:piston"
+    },
+    "$": {
+      "item": "minecraft:redstone"
+    }
+  },
+  "result": {
+    "item": "civilizationswars:object_compressor"
+  }
+}

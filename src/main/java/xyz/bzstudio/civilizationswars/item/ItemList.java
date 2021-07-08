@@ -20,6 +20,7 @@ public class ItemList {
 	public static final Item COPPER_BLOCK = register("copper_block", new BlockItem(BlockList.COPPER_BLOCK, new Item.Properties().group(ItemGroups.TAB_CIVILIZATIONS_WARS)));
 	public static final Item CERAMICS_MAKER = register("ceramics_maker", new BlockItem(BlockList.CERAMICS_MAKER, new Item.Properties().group(ItemGroups.TAB_CIVILIZATIONS_WARS)));
 	public static final Item ELECTROMAGNETIC_CATAPULT = register("electromagnetic_catapult", new BlockItem(BlockList.ELECTROMAGNETIC_CATAPULT, new Item.Properties().group(ItemGroups.TAB_CIVILIZATIONS_WARS)));
+	public static final Item OBJECT_COMPRESSOR_BLOCK = register("object_compressor_block", new BlockItem(BlockList.OBJECT_COMPRESSOR_BLOCK, new Item.Properties().group(ItemGroups.TAB_CIVILIZATIONS_WARS)));
 
 	private static Item register(String name, Item item) {
 		ITEMS.register(name, () -> item);

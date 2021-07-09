@@ -8,7 +8,7 @@ import net.minecraftforge.fml.event.lifecycle.InterModEnqueueEvent;
 import net.minecraftforge.fml.event.lifecycle.InterModProcessEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import xyz.bzstudio.civilizationswars.block.BlockList;
-import xyz.bzstudio.civilizationswars.client.gui.screen.ScreenManager;
+import xyz.bzstudio.civilizationswars.client.gui.screen.ScreenContainerManager;
 import xyz.bzstudio.civilizationswars.inventory.container.ContainerTypeList;
 import xyz.bzstudio.civilizationswars.item.ItemList;
 import xyz.bzstudio.civilizationswars.tileentity.TileEntityTypeList;
@@ -38,7 +38,7 @@ public class CivilizationsWars {
 	}
 
 	private void doClientStuff(final FMLClientSetupEvent event) {
-		event.enqueueWork(ScreenManager::register);
+		event.enqueueWork(ScreenContainerManager::register);
 	}
 
 	private void enqueueIMC(final InterModEnqueueEvent event) {

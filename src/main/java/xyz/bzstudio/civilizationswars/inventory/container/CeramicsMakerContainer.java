@@ -17,6 +17,7 @@ public class CeramicsMakerContainer extends Container {
 	public CeramicsMakerContainer(int id, PlayerInventory playerInventory, BlockPos pos) {
 		super(ContainerTypeList.CERAMICS_MAKER, id);
 		CeramicsMakerTileEntity tileEntity = (CeramicsMakerTileEntity) playerInventory.player.world.getTileEntity(pos);
+
 		this.addSlot(new SelectSlot(new ItemStack(ItemList.CERAMICS_CYLINDER_MODEL), 12, 20) {
 			@Override
 			public void onClick(PlayerEntity player) {

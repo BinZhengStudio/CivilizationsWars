@@ -27,6 +27,7 @@ public class ObjectCompressorTileEntity extends TileEntity implements INamedCont
 	}
 
 	@Override
+
 	public ITextComponent getDisplayName() {
 		return new TranslationTextComponent("gui." + CivilizationsWars.MODID + ".object_compressor");
 	}

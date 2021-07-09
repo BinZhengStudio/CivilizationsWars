@@ -1,8 +1,15 @@
 {
   "block.civilizationswars.ceramics_maker": "Ceramics Maker",
+  "block.civilizationswars.object_compressor": "Object Compressor",
   "block.civilizationswars.copper_ore":"Copper Ore",
   "block.civilizationswars.copper_block":"Copper Block",
 
+  "gui.civilizationswars.ceramics_maker": "Ceramics Maker",
+  "gui.civilizationswars.object_compressor": "Object Compressor",
+
   "item.civilizationswars.copper_ingot":"Copper Ingot" ,
-  "item.civilizationswars.ceramics_cylinder":"Ceramic Cylinder"
+  "item.civilizationswars.ceramics_cylinder":"Ceramic Cylinder",
+
+  "screen_text.ceramics_maker.1": "Select The Ceramic Model You Want",
+  "screen.object_compressor.tooltip.te": "Threebody Energy: 2000000/2000000"
 }

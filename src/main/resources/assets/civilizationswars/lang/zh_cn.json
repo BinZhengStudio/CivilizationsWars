@@ -1,8 +1,15 @@
 {
   "block.civilizationswars.ceramics_maker": "陶模捏制机",
+  "block.civilizationswars.object_compressor": "物质压缩机",
   "block.civilizationswars.copper_ore": "铜矿石",
   "block.civilizationswars.copper_block": "铜块",
 
+  "gui.civilizationswars.ceramics_maker": "陶模捏制机",
+  "gui.civilizationswars.object_compressor": "物质压缩机",
+
   "item.civilizationswars.copper_ingot": "铜锭" ,
-  "item.civilizationswars.ceramics_cylinder": "陶瓷筒"
+  "item.civilizationswars.ceramics_cylinder": "陶瓷筒",
+
+  "screen_text.ceramics_maker.1": "选择你想要捏制的陶模",
+  "screen.object_compressor.tooltip.te": "Threebody Energy: 2000000/2000000"
 }

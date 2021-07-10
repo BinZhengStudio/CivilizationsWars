@@ -15,6 +15,8 @@ public class ItemList {
 	public static final Item CERAMICS_CYLINDER = register("ceramics_cylinder", new Item(new Item.Properties().group(ItemGroups.TAB_CIVILIZATIONS_WARS)));
 	public static final Item COPPER_WIRE = register("copper_wire", new Item(new Item.Properties().group(ItemGroups.TAB_CIVILIZATIONS_WARS)));
 	public static final Item COIL = register("coil", new Item(new Item.Properties().group(ItemGroups.TAB_CIVILIZATIONS_WARS)));
+	public static final Item LIGHT_PARTICLE = register("light_particle", new Item(new Item.Properties().group(ItemGroups.TAB_CIVILIZATIONS_WARS)));
+	public static final Item ELECTROMAGNETIC_EJECTION_GUN = register("electromagnetic_ejection_gun", new ElectromagneticEjectionGunItem());
 
 	public static final Item COPPER_ORE = register("copper_ore", new BlockItem(BlockList.COPPER_ORE, new Item.Properties().group(ItemGroups.TAB_CIVILIZATIONS_WARS)));
 	public static final Item COPPER_BLOCK = register("copper_block", new BlockItem(BlockList.COPPER_BLOCK, new Item.Properties().group(ItemGroups.TAB_CIVILIZATIONS_WARS)));

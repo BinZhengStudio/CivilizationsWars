@@ -9,6 +9,7 @@ import net.minecraftforge.fml.event.lifecycle.InterModProcessEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import xyz.bzstudio.civilizationswars.block.BlockList;
 import xyz.bzstudio.civilizationswars.client.gui.screen.ScreenContainerManager;
+import xyz.bzstudio.civilizationswars.entity.EntityTypeList;
 import xyz.bzstudio.civilizationswars.inventory.container.ContainerTypeList;
 import xyz.bzstudio.civilizationswars.item.ItemList;
 import xyz.bzstudio.civilizationswars.tileentity.TileEntityTypeList;
@@ -24,6 +25,7 @@ public class CivilizationsWars {
 	public CivilizationsWars() {
 		BlockList.BLOCKS.register(FMLJavaModLoadingContext.get().getModEventBus());
 		ContainerTypeList.CONTAINER_TYPE.register(FMLJavaModLoadingContext.get().getModEventBus());
+		EntityTypeList.ENTITY_TYPE.register(FMLJavaModLoadingContext.get().getModEventBus());
 		ItemList.ITEMS.register(FMLJavaModLoadingContext.get().getModEventBus());
 		TileEntityTypeList.TILE_ENTITY_TYPE.register(FMLJavaModLoadingContext.get().getModEventBus());
 

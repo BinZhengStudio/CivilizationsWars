@@ -7,7 +7,7 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 
 import javax.annotation.Nonnull;
 
-public class ItemGroups {
+public class ItemGroupList {
 	public static final ItemGroup TAB_CIVILIZATIONS_WARS = new ItemGroup("civilizationsWars") {
 		@OnlyIn(Dist.CLIENT)
 		@Nonnull

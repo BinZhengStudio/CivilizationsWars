@@ -9,7 +9,7 @@ import net.minecraft.world.World;
 
 public class ElectromagneticEjectionGunItem extends Item {
 	public ElectromagneticEjectionGunItem() {
-		super(new Properties().group(ItemGroups.TAB_CIVILIZATIONS_WARS));
+		super(new Properties().group(ItemGroupList.TAB_CIVILIZATIONS_WARS));
 	}
 
 	@Override

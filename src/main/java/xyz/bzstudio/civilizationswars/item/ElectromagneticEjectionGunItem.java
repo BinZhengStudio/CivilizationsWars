@@ -1,14 +1,14 @@
 package xyz.bzstudio.civilizationswars.item;
 
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.EggItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.math.vector.Vector3d;
+import net.minecraft.world.Explosion;
 import net.minecraft.world.World;
-import xyz.bzstudio.civilizationswars.entity.LightParticleEntity;
 
 public class ElectromagneticEjectionGunItem extends Item {
 	public ElectromagneticEjectionGunItem() {
@@ -21,21 +21,24 @@ public class ElectromagneticEjectionGunItem extends Item {
 			ItemStack heldItemOffHand = playerIn.getHeldItem(Hand.OFF_HAND);
 
 			if (playerIn.isCreative()) {
-				this.shoot(worldIn, playerIn);
+				this.createExplosion(worldIn, playerIn);
 			} else if (heldItemOffHand.getItem() == ItemList.LIGHT_PARTICLE) {
-				this.shoot(worldIn, playerIn);
 //                worldIn.playSound(); TODO 以后会搞音效的
+				this.createExplosion(worldIn, playerIn);
 				heldItemOffHand.shrink(1);
 			}
 		}
 		return super.onItemRightClick(worldIn, playerIn, handIn);
 	}
 
-	private void shoot(World world, PlayerEntity player) {
+	private void createExplosion(World world, PlayerEntity player) {
 		Vector3d vector3d = player.getLookVec();
-		LightParticleEntity entity = new LightParticleEntity(player, vector3d.x, vector3d.y, vector3d.z, world);
-		entity.setPosition(player.getPosX() + vector3d.x * 4.0D, player.getPosYHeight(0.5D) + 0.5D, player.getPosZ() + vector3d.z * 4.0D);
-		world.addEntity(entity);
-		// TODO 需要算，以后再写
+		for (int i = 0; i < 10; i++) {
+			if (i == 0) {
+				world.createExplosion((Entity) null, player.getPosX() + (vector3d.x * 7), player.getPosY() + (vector3d.y * 7), player.getPosZ() + (vector3d.z * 7), 3, Explosion.Mode.DESTROY);
+			} else {
+				world.createExplosion((Entity) null, player.getPosX() + (vector3d.x * 5 * (i + 1)), player.getPosY() + (vector3d.y * 5 * (i + 1)), player.getPosZ() + (vector3d.z * 5 * (i + 1)), 3, Explosion.Mode.DESTROY);
+			}
+		}
 	}
 }

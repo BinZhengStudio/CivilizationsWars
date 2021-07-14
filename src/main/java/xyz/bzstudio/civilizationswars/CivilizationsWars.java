@@ -12,6 +12,7 @@ import xyz.bzstudio.civilizationswars.client.gui.screen.ScreenContainerManager;
 import xyz.bzstudio.civilizationswars.entity.EntityTypeList;
 import xyz.bzstudio.civilizationswars.inventory.container.ContainerTypeList;
 import xyz.bzstudio.civilizationswars.item.ItemList;
+import xyz.bzstudio.civilizationswars.network.NetworkHandler;
 import xyz.bzstudio.civilizationswars.tileentity.TileEntityTypeList;
 
 /**
@@ -37,6 +38,7 @@ public class CivilizationsWars {
 	}
 
 	private void setup(final FMLCommonSetupEvent event) {
+		event.enqueueWork(NetworkHandler::register);
 	}
 
 	private void doClientStuff(final FMLClientSetupEvent event) {

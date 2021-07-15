@@ -10,9 +10,19 @@
   "gui.civilizationswars.ceramics_maker": "Ceramics Maker",
   "gui.civilizationswars.object_compressor": "Object Compressor",
 
+  "item.civilizationswars.coil": "Coil" ,
   "item.civilizationswars.copper_ingot":"Copper Ingot" ,
+  "item.civilizationswars.copper_nugget": "Copper Ingot" ,
+  "item.civilizationswars.copper_wire": "Copper Wire" ,
   "item.civilizationswars.ceramics_cylinder":"Ceramic Cylinder",
+  "item.civilizationswars.ceramics_cylinder_model": "Ceramic Cylinder (Ceramic Model)",
+  "item.civilizationswars.electromagnetic_catapult": "Electromagnetic Catapult",
+  "item.civilizationswars.electromagnetic_ejection_gun": "Electromagnetic Ejection Gun",
+  "item.civilizationswars.light_particle": "Light Particle",
+  "item.civilizationswars.object_compressor": "Object Compressor",
+
+  "itemGroup.civilizationsWars": "ThreebodyIndustry (Preview)",
 
   "screen_text.ceramics_maker.1": "Select The Ceramic Model You Want",
-  "screen.object_compressor.tooltip.te": "Threebody Energy: You are using preview version, Energy is unlimited."
+  "screen.object_compressor.tooltip.te": "Threebody Energy: Endless in preview version."
 }

@@ -4,6 +4,7 @@ import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.AbstractGui;
+import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.StringTextComponent;
@@ -19,6 +20,7 @@ public class ElectricGunGui extends AbstractGui {
 	private final int width;
 	private final int height;
 	private final Minecraft minecraft;
+	private final FontRenderer fontRenderer;
 	private final ResourceLocation TEXTURE = new ResourceLocation(CivilizationsWars.MODID, "textures/gui/electric_gun.png");
 	private MatrixStack matrixStack;
 
@@ -26,6 +28,7 @@ public class ElectricGunGui extends AbstractGui {
 		this.width = Minecraft.getInstance().getMainWindow().getScaledWidth();
 		this.height = Minecraft.getInstance().getMainWindow().getScaledHeight();
 		this.minecraft = Minecraft.getInstance();
+		this.fontRenderer = Minecraft.getInstance().fontRenderer;
 		this.matrixStack = matrixStack;
 		this.charge = ((ElectromagneticEjectionGunItem) gun.getItem()).getCharge(gun);
 		this.totalCharge = ((ElectromagneticEjectionGunItem) gun.getItem()).getTotalCharge();
@@ -38,7 +41,10 @@ public class ElectricGunGui extends AbstractGui {
 	public void render() { // TODO
 		RenderSystem.color4f(1.0F, 1.0F, 1.0F, 1.0F);
 		this.minecraft.getTextureManager().bindTexture(TEXTURE);
-		blit(matrixStack, width / 2 - 44, height / 2 - 64, 0, 0, 88, 22, 88, 44);
-		blit(matrixStack, width / 2 - 44, height / 2 - 64, 0, 22, 5 + (int) (78 * ((float) this.charge / this.totalCharge)), 22, 88, 44);
+		blit(matrixStack, width / 2 - 44, height - 36, 0, 0, 88, 13, 88, 26);
+		blit(matrixStack, width / 2 - 44, height - 36, 0, 13, 3 + (int) (82 * ((float) this.charge / this.totalCharge)), 13, 88, 26);
+
+		String text = this.charge + "/" + this.totalCharge;
+		this.fontRenderer.drawText(this.matrixStack, new StringTextComponent(text), (float) (width - this.fontRenderer.getStringWidth(text)) / 2, height - 34, 0xFFFFFF);
 	}
 }

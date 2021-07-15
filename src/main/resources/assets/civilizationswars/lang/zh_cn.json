@@ -1,6 +1,6 @@
 {
-  "advancements.civilizationswars.root.title": "感谢体验《三体工业》Mod预览版",
-  "advancements.civilizationswars.root.description": "安装《三体工业》Mod预览版并启动Minecraft",
+  "advancements.civilizationswars.root.title": "感谢体验《三体工业》预览版",
+  "advancements.civilizationswars.root.description": "安装《三体工业》预览版并启动Minecraft",
 
   "block.civilizationswars.ceramics_maker": "陶模捏制机",
   "block.civilizationswars.object_compressor": "物质压缩机",
@@ -10,8 +10,18 @@
   "gui.civilizationswars.ceramics_maker": "陶模捏制机",
   "gui.civilizationswars.object_compressor": "物质压缩机",
 
+  "item.civilizationswars.coil": "线圈" ,
   "item.civilizationswars.copper_ingot": "铜锭" ,
+  "item.civilizationswars.copper_nugget": "铜粒" ,
+  "item.civilizationswars.copper_wire": "铜导线" ,
   "item.civilizationswars.ceramics_cylinder": "陶瓷筒",
+  "item.civilizationswars.ceramics_cylinder_model": "陶瓷筒 陶模",
+  "item.civilizationswars.electromagnetic_catapult": "光粒发射器",
+  "item.civilizationswars.electromagnetic_ejection_gun": "光粒弹射枪",
+  "item.civilizationswars.light_particle": "光粒",
+  "item.civilizationswars.object_compressor": "物质压缩机",
+
+  "itemGroup.civilizationsWars": "三体工业（预览版）",
 
   "screen_text.ceramics_maker.1": "选择你想要捏制的陶模",
   "screen.object_compressor.tooltip.te": "Threebody Energy: (预览版为无限)"

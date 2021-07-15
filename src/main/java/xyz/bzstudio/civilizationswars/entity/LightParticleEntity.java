@@ -4,8 +4,6 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.projectile.DamagingProjectileEntity;
-import net.minecraft.util.math.EntityRayTraceResult;
-import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.Explosion;
 import net.minecraft.world.World;
@@ -19,13 +17,9 @@ public class LightParticleEntity extends DamagingProjectileEntity {
 		this(EntityTypeList.LIGHT_PARTICLE, world);
 		this.setLocationAndAngles(x, y, z, this.rotationYaw, this.rotationPitch);
 		this.recenterBoundingBox();
-		double d0 = MathHelper.sqrt(accelX * accelX + accelY * accelY + accelZ * accelZ);
-		if (d0 != 0.0D) {
-			this.accelerationX = accelX / d0 * 0.1D;
-			this.accelerationY = accelY / d0 * 0.1D;
-			this.accelerationZ = accelZ / d0 * 0.1D;
-		}
-
+		this.accelerationX = accelX;
+		this.accelerationY = accelY;
+		this.accelerationZ = accelZ;
 	}
 
 	public LightParticleEntity(LivingEntity shooter, double accelX, double accelY, double accelZ, World world) {
@@ -38,7 +32,7 @@ public class LightParticleEntity extends DamagingProjectileEntity {
 	protected void onImpact(RayTraceResult result) {
 		super.onImpact(result);
 		if (!this.world.isRemote) {
-			this.world.createExplosion((Entity) null, this.getPosX(), this.getPosY(), this.getPosZ(), 3F, false, Explosion.Mode.DESTROY);
+			this.world.createExplosion((Entity) null, this.getPosX(), this.getPosY(), this.getPosZ(), 4.0F, false, Explosion.Mode.DESTROY);
 			this.remove();
 		}
 	}

@@ -27,9 +27,9 @@ public class ObjectCompressorBlock extends ContainerBlock {
 		if (!worldIn.isRemote && state.getBlock() == this) {
 			ObjectCompressorTileEntity tileEntity = (ObjectCompressorTileEntity) worldIn.getTileEntity(pos);
 			NetworkHooks.openGui((ServerPlayerEntity) player, tileEntity, (buf) -> buf.writeBlockPos(tileEntity.getPos()));
-			return ActionResultType.SUCCESS;
+			return ActionResultType.CONSUME;
 		}
-		return ActionResultType.CONSUME;
+		return ActionResultType.SUCCESS;
 	}
 
 	@Override

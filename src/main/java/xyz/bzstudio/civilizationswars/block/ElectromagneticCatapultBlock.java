@@ -19,7 +19,6 @@ import net.minecraft.util.math.shapes.ISelectionContext;
 import net.minecraft.util.math.shapes.VoxelShape;
 import net.minecraft.util.math.shapes.VoxelShapes;
 import net.minecraft.world.IBlockReader;
-import xyz.bzstudio.civilizationswars.tileentity.ElectromagneticCatapultTileEntity;
 
 import javax.annotation.Nullable;
 
@@ -41,19 +40,8 @@ public class ElectromagneticCatapultBlock extends Block {
 	}
 
 	@Override
-	public boolean hasTileEntity(BlockState state) { // TODO
-		return true;
-	}
-
-	@Nullable
-	@Override
-	public TileEntity createTileEntity(BlockState state, IBlockReader world) { // TODO
-		return new ElectromagneticCatapultTileEntity();
-	}
-
-	@Override
 	public BlockState getStateForPlacement(BlockItemUseContext context) {
-		return this.getDefaultState().with(FACING, context.getNearestLookingDirection().getOpposite());
+		return this.getDefaultState().with(FACING, context.getFace());
 	}
 
 	@Override

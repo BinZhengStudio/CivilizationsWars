@@ -22,7 +22,7 @@ public class ElectricGunGui extends AbstractGui {
 	private final Minecraft minecraft;
 	private final FontRenderer fontRenderer;
 	private final ResourceLocation TEXTURE = new ResourceLocation(CivilizationsWars.MODID, "textures/gui/electric_gun.png");
-	private MatrixStack matrixStack;
+	private final MatrixStack matrixStack;
 
 	public ElectricGunGui(MatrixStack matrixStack, ItemStack gun) {
 		this.width = Minecraft.getInstance().getMainWindow().getScaledWidth();
@@ -32,10 +32,6 @@ public class ElectricGunGui extends AbstractGui {
 		this.matrixStack = matrixStack;
 		this.charge = ((ElectromagneticEjectionGunItem) gun.getItem()).getCharge(gun);
 		this.totalCharge = ((ElectromagneticEjectionGunItem) gun.getItem()).getTotalCharge();
-	}
-
-	public void setMatrixStack(MatrixStack matrixStack) {
-		this.matrixStack = matrixStack;
 	}
 
 	public void render() { // TODO

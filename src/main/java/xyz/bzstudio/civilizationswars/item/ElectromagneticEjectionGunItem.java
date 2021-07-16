@@ -85,9 +85,9 @@ public class ElectromagneticEjectionGunItem extends Item {
 		Vector3d vector3d = player.getLookVec();
 		for (int i = 0; i < 10 * ((float) charge / this.getTotalCharge()); i++) {
 			if (i == 0) {
-				world.createExplosion((Entity) null, player.getPosX() + (vector3d.x * 7), player.getPosY() + (vector3d.y * 7), player.getPosZ() + (vector3d.z * 7), 3.0F * ((float) charge / this.getTotalCharge()), Explosion.Mode.DESTROY);
+				world.createExplosion((Entity) null, player.getPosX() + (vector3d.x * 7), player.getPosY() + (vector3d.y * 7), player.getPosZ() + (vector3d.z * 7), 3.0F * ((float) charge / this.getTotalCharge()), Explosion.Mode.NONE);
 			} else {
-				world.createExplosion((Entity) null, player.getPosX() + (vector3d.x * 5 * (i + 1)), player.getPosY() + (vector3d.y * 5 * (i + 1)), player.getPosZ() + (vector3d.z * 5 * (i + 1)), 3.0F * ((float) charge / this.getTotalCharge()), Explosion.Mode.DESTROY);
+				world.createExplosion((Entity) null, player.getPosX() + (vector3d.x * 5 * (i + 1)), player.getPosY() + (vector3d.y * 5 * (i + 1)), player.getPosZ() + (vector3d.z * 5 * (i + 1)), 3.0F * ((float) charge / this.getTotalCharge()), Explosion.Mode.NONE);
 			}
 		}
 	}

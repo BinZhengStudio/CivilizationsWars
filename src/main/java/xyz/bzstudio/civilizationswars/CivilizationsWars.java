@@ -8,7 +8,7 @@ import net.minecraftforge.fml.event.lifecycle.InterModEnqueueEvent;
 import net.minecraftforge.fml.event.lifecycle.InterModProcessEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import xyz.bzstudio.civilizationswars.block.BlockList;
-import xyz.bzstudio.civilizationswars.client.gui.screen.ScreenContainerManager;
+import xyz.bzstudio.civilizationswars.client.gui.ScreenContainerManager;
 import xyz.bzstudio.civilizationswars.entity.EntityTypeList;
 import xyz.bzstudio.civilizationswars.inventory.container.ContainerTypeList;
 import xyz.bzstudio.civilizationswars.item.ItemList;

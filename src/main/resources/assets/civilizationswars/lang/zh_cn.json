@@ -3,10 +3,12 @@
   "advancements.civilizationswars.root.description": "安装《三体工业》预览版并启动Minecraft",
 
   "block.civilizationswars.ceramics_maker": "陶模捏制机",
-  "block.civilizationswars.object_compressor": "物质压缩机",
   "block.civilizationswars.copper_ore": "铜矿石",
   "block.civilizationswars.copper_block": "铜块",
+  "block.civilizationswars.electromagnetic_catapult": "光粒发射器",
+  "block.civilizationswars.object_compressor": "物质压缩机",
 
+  "gui.civilizationswars.catapult_controller": "弹射控制器",
   "gui.civilizationswars.ceramics_maker": "陶模捏制机",
   "gui.civilizationswars.object_compressor": "物质压缩机",
 
@@ -16,13 +18,17 @@
   "item.civilizationswars.copper_wire": "铜导线" ,
   "item.civilizationswars.ceramics_cylinder": "陶瓷筒",
   "item.civilizationswars.ceramics_cylinder_model": "陶瓷筒 陶模",
-  "item.civilizationswars.electromagnetic_catapult": "光粒发射器",
   "item.civilizationswars.electromagnetic_ejection_gun": "光粒弹射枪",
   "item.civilizationswars.light_particle": "光粒",
-  "item.civilizationswars.object_compressor": "物质压缩机",
+  "item.civilizationswars.two_way_foil": "二向箔",
+  "item.civilizationswars.two_way_foil_raw_material": "二向箔 原料",
 
   "itemGroup.civilizationsWars": "三体工业（预览版）",
 
-  "screen_text.ceramics_maker.1": "选择你想要捏制的陶模",
-  "screen.object_compressor.tooltip.te": "Threebody Energy: (预览版为无限)"
+  "screen.catapult_controller.fire": "发射",
+  "screen.catapult_controller.x_offset": "X轴偏移：",
+  "screen.catapult_controller.y_offset": "Y轴偏移：",
+  "screen.catapult_controller.z_offset": "Z轴偏移：",
+  "screen.ceramics_maker.text": "选择你想要捏制的陶模",
+  "screen.tooltip.threebody_energy": "Threebody Energy: (预览版为无限)"
 }

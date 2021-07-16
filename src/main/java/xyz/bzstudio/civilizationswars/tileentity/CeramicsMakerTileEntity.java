@@ -18,7 +18,7 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 public class CeramicsMakerTileEntity extends TileEntity implements INamedContainerProvider {
-	private Inventory inventory = new Inventory(1);
+	private final Inventory inventory = new Inventory(1);
 
 	public CeramicsMakerTileEntity() {
 		super(TileEntityTypeList.CERAMICS_MAKER);

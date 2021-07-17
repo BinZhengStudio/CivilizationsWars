@@ -5,19 +5,29 @@ import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.container.Container;
 import net.minecraft.inventory.container.Slot;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.IntArray;
 import net.minecraft.util.math.BlockPos;
+import xyz.bzstudio.civilizationswars.block.CatapultControllerBlock;
 import xyz.bzstudio.civilizationswars.item.ItemList;
 import xyz.bzstudio.civilizationswars.tileentity.CatapultControllerTileEntity;
 
 public class CatapultControllerContainer extends Container {
+	private final BlockPos pos;
 	public CatapultControllerContainer(int id, PlayerInventory playerInventory, BlockPos pos) {
 		super(ContainerTypeList.CATAPULT_CONTROLLER, id);
+		this.pos = pos;
+
 		CatapultControllerTileEntity tileEntity = (CatapultControllerTileEntity) playerInventory.player.world.getTileEntity(pos);
 
 		this.addSlot(new Slot(tileEntity.getInventory(), 0, 80, 34) {
 			@Override
 			public boolean isItemValid(ItemStack stack) {
 				return stack.getItem() == (ItemList.LIGHT_PARTICLE);
+			}
+
+			@Override
+			public int getSlotStackLimit() {
+				return 1;
 			}
 		});
 
@@ -30,6 +40,10 @@ public class CatapultControllerContainer extends Container {
 		for (int i = 0; i < 9; ++i) {
 			this.addSlot(new Slot(playerInventory, i, 8 + i * 18, 142));
 		}
+	}
+
+	public BlockPos getPos() {
+		return this.pos;
 	}
 
 	@Override

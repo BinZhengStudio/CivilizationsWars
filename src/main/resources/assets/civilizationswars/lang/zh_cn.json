@@ -8,6 +8,8 @@
   "block.civilizationswars.electromagnetic_catapult": "光粒发射器",
   "block.civilizationswars.object_compressor": "物质压缩机",
 
+  "entity.civilizationswars.light_particle": "光粒",
+
   "gui.civilizationswars.catapult_controller": "弹射控制器",
   "gui.civilizationswars.ceramics_maker": "陶模捏制机",
   "gui.civilizationswars.object_compressor": "物质压缩机",
@@ -26,6 +28,7 @@
   "itemGroup.civilizationsWars": "三体工业（预览版）",
 
   "screen.catapult_controller.fire": "发射",
+  "screen.catapult_controller.number_incorrect": "数值不正确",
   "screen.catapult_controller.x_offset": "X轴偏移：",
   "screen.catapult_controller.y_offset": "Y轴偏移：",
   "screen.catapult_controller.z_offset": "Z轴偏移：",

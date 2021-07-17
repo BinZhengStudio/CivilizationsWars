@@ -12,6 +12,8 @@
   "gui.civilizationswars.ceramics_maker": "Ceramics Maker",
   "gui.civilizationswars.object_compressor": "Object Compressor",
 
+  "entity.civilizationswars.light_particle": "Light Particle",
+
   "item.civilizationswars.coil": "Coil" ,
   "item.civilizationswars.copper_ingot":"Copper Ingot" ,
   "item.civilizationswars.copper_nugget": "Copper Ingot" ,
@@ -26,6 +28,7 @@
   "itemGroup.civilizationsWars": "ThreebodyIndustry (Preview)",
 
   "screen.catapult_controller.fire": "Fire",
+  "screen.catapult_controller.number_incorrect": "Number Incorrect",
   "screen.catapult_controller.x_offset": "X Offset: ",
   "screen.catapult_controller.y_offset": "Y Offset: ",
   "screen.catapult_controller.z_offset": "Z Offset: ",

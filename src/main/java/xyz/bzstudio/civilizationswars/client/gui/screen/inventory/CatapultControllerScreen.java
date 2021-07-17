@@ -6,18 +6,22 @@ import net.minecraft.client.gui.screen.inventory.ContainerScreen;
 import net.minecraft.client.gui.widget.TextFieldWidget;
 import net.minecraft.client.gui.widget.button.Button;
 import net.minecraft.entity.player.PlayerInventory;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
 import xyz.bzstudio.civilizationswars.CivilizationsWars;
 import xyz.bzstudio.civilizationswars.inventory.container.CatapultControllerContainer;
+import xyz.bzstudio.civilizationswars.network.NetworkHandler;
+import xyz.bzstudio.civilizationswars.network.client.CLightParticleFirePacket;
 
 public class CatapultControllerScreen extends ContainerScreen<CatapultControllerContainer> {
 	private static final ResourceLocation TEXTURE = new ResourceLocation(CivilizationsWars.MODID, "textures/gui/container/catapult_controller.png");
 	private TextFieldWidget textFieldX;
 	private TextFieldWidget textFieldY;
 	private TextFieldWidget textFieldZ;
+	private boolean numberIncorrect = false;
 
 	public CatapultControllerScreen(CatapultControllerContainer screenContainer, PlayerInventory inv, ITextComponent titleIn) {
 		super(screenContainer, inv, titleIn);
@@ -53,7 +57,9 @@ public class CatapultControllerScreen extends ContainerScreen<CatapultController
 		this.children.add(this.textFieldZ);
 
 		this.addButton(new Button(this.guiLeft + 73, this.guiTop + 58, 30, 20, new TranslationTextComponent("screen.catapult_controller.fire"), (press) -> {
-			// TODO
+			if (!this.numberIncorrect && !this.getContainer().getInventory().get(0).isEmpty()) {
+				NetworkHandler.LIGHT_PARTICLE_FIRE.sendToServer(new CLightParticleFirePacket(new int[]{Integer.parseInt(this.textFieldX.getText()), Integer.parseInt(this.textFieldY.getText()), Integer.parseInt(this.textFieldZ.getText())}, this.getContainer().getPos()));
+			}
 		}));
 	}
 
@@ -74,18 +80,37 @@ public class CatapultControllerScreen extends ContainerScreen<CatapultController
 	protected void drawGuiContainerForegroundLayer(MatrixStack matrixStack, int x, int y) {
 		super.drawGuiContainerForegroundLayer(matrixStack, x, y);
 		TranslationTextComponent xOffset = new TranslationTextComponent("screen.catapult_controller.x_offset");
-		this.font.drawText(matrixStack, xOffset, 143 - this.font.getStringWidth(xOffset.getString()),16,4210752);
+		this.font.drawText(matrixStack, xOffset, 143 - this.font.getStringWidth(xOffset.getString()), 16, 4210752);
 
 		TranslationTextComponent yOffset = new TranslationTextComponent("screen.catapult_controller.y_offset");
-		this.font.drawText(matrixStack, yOffset, 143 - this.font.getStringWidth(yOffset.getString()),38,4210752);
+		this.font.drawText(matrixStack, yOffset, 143 - this.font.getStringWidth(yOffset.getString()), 38, 4210752);
 
 		TranslationTextComponent zOffset = new TranslationTextComponent("screen.catapult_controller.z_offset");
-		this.font.drawText(matrixStack, zOffset, 143 - this.font.getStringWidth(zOffset.getString()),60,4210752);
+		this.font.drawText(matrixStack, zOffset, 143 - this.font.getStringWidth(zOffset.getString()), 60, 4210752);
 
 		for (int i = 0; i < 3; i++) {
 			this.font.drawText(matrixStack, new StringTextComponent("°"), 162, i * 22 + 16, 4210752);
 			this.font.drawText(matrixStack, new StringTextComponent("(-30~30)"), 112, i * 22 + 23, 0xFF7777);
 		}
+
+		try {
+			int x_offset = Integer.parseInt(this.textFieldX.getText());
+			int y_offset = Integer.parseInt(this.textFieldY.getText());
+			int z_offset = Integer.parseInt(this.textFieldZ.getText());
+
+			if (x_offset > 30 || x_offset < -30 || y_offset > 30 || y_offset < -30 || z_offset > 30 || z_offset < -30) {
+				TranslationTextComponent numberIncorrect = new TranslationTextComponent("screen.catapult_controller.number_incorrect");
+				this.font.drawText(matrixStack, numberIncorrect, 70 - ((float) this.font.getStringWidth(numberIncorrect.getString()) / 2), 18, 0xFF0000);
+				this.numberIncorrect = true;
+			} else {
+				this.numberIncorrect = false;
+			}
+		} catch (NumberFormatException e) {
+			TranslationTextComponent numberIncorrect = new TranslationTextComponent("screen.catapult_controller.number_incorrect");
+			this.font.drawText(matrixStack, numberIncorrect, 70 - ((float) this.font.getStringWidth(numberIncorrect.getString()) / 2), 18, 0xFF0000);
+			this.numberIncorrect = true;
+		}
+
 	}
 
 	@Override

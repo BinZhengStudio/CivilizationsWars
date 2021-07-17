@@ -1,58 +1,104 @@
 package xyz.bzstudio.civilizationswars.entity;
 
+import net.minecraft.block.Blocks;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.projectile.DamagingProjectileEntity;
 import net.minecraft.network.IPacket;
-import net.minecraft.network.PacketBuffer;
+import net.minecraft.util.math.AxisAlignedBB;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.Explosion;
 import net.minecraft.world.World;
-import net.minecraftforge.fml.common.registry.IEntityAdditionalSpawnData;
 import net.minecraftforge.fml.network.NetworkHooks;
 
-public class LightParticleEntity extends DamagingProjectileEntity implements IEntityAdditionalSpawnData {
+import java.util.List;
+
+public class LightParticleEntity extends DamagingProjectileEntity {
+	public static final float MAX_EXPLOSION_POWER = 5.0F;
+	private float explosionPower;
+
 	public LightParticleEntity(EntityType<? extends DamagingProjectileEntity> entityTypeIn, World worldIn) {
 		super(entityTypeIn, worldIn);
 	}
 
-	public LightParticleEntity(double x, double y, double z, double accelX, double accelY, double accelZ, World world) {
+	public LightParticleEntity(double x, double y, double z, double accelX, double accelY, double accelZ, float explosionPower, World world) {
 		this(EntityTypeList.LIGHT_PARTICLE, world);
 		this.setLocationAndAngles(x, y, z, this.rotationYaw, this.rotationPitch);
 		this.recenterBoundingBox();
 		this.accelerationX = accelX;
 		this.accelerationY = accelY;
 		this.accelerationZ = accelZ;
+		this.explosionPower = explosionPower;
 	}
 
-	public LightParticleEntity(LivingEntity shooter, double accelX, double accelY, double accelZ, World world) {
-		this(shooter.getPosX(), shooter.getPosY(), shooter.getPosZ(), accelX, accelY, accelZ, world);
+	public LightParticleEntity(LivingEntity shooter, double accelX, double accelY, double accelZ, float explosionPower, World world) {
+		this(shooter.getPosX(), shooter.getPosY(), shooter.getPosZ(), accelX, accelY, accelZ, explosionPower, world);
 		this.setShooter(shooter);
 		this.setRotation(shooter.rotationYaw, shooter.rotationPitch);
+	}
+
+	@Override
+	public void tick() {
+		super.tick();
+		if (!world.isRemote) {
+			world.createExplosion((Entity) null, this.getPosX(), this.getPosY(), this.getPosZ(), this.explosionPower, Explosion.Mode.DESTROY);
+		}
 	}
 
 	@Override
 	protected void onImpact(RayTraceResult result) {
 		super.onImpact(result);
 		if (!this.world.isRemote) {
-			this.world.createExplosion((Entity) null, this.getPosX(), this.getPosY(), this.getPosZ(), 4.0F, false, Explosion.Mode.DESTROY);
+			float radius = 10 * this.explosionPower / MAX_EXPLOSION_POWER;
+			this.destroyBlock(radius);
+			this.killEntity(radius);
 			this.remove();
+		}
+	}
+
+	private void destroyBlock(float radius) {
+		int minX = MathHelper.floor(this.getPosX() - radius);
+		int maxX = MathHelper.ceil(this.getPosX() + radius);
+		int minY = MathHelper.floor(this.getPosY() - radius);
+		int maxY = MathHelper.ceil(this.getPosY() + radius);
+		int minZ = MathHelper.floor(this.getPosZ() - radius);
+		int maxZ = MathHelper.ceil(this.getPosZ() + radius);
+
+		for (int x = minX; x < maxX; ++x) {
+			for (int y = minY; y < maxY; ++y) {
+				for (int z = minZ; z < maxZ; ++z) {
+					if (this.getDistanceSq(x, y, z) < radius * radius) {
+						if (!(this.world.getBlockState(new BlockPos(x, y, z)).getBlock() == (Blocks.BEDROCK))) {
+							this.world.setBlockState(new BlockPos(x, y, z), Blocks.AIR.getDefaultState());
+						}
+					}
+				}
+			}
+		}
+	}
+
+	private void killEntity(float radius) {
+		float killRadius = radius * 2;
+		AxisAlignedBB axisAlignedBB = new AxisAlignedBB(this.getPosX() - killRadius, this.getPosY() - killRadius, this.getPosZ() - killRadius, this.getPosX() + killRadius, this.getPosY() + killRadius, this.getPosZ() + killRadius);
+		List<Entity> entities = this.world.getEntitiesWithinAABBExcludingEntity((Entity) null, axisAlignedBB);
+		for (Entity entity : entities) {
+			if (this.getDistanceSq(entity) < killRadius * killRadius && entity != this) {
+				if (entity instanceof PlayerEntity) {
+					if (!((PlayerEntity) entity).isCreative() && !((PlayerEntity) entity).isSpectator())
+						((PlayerEntity) entity).setHealth(0.0F);
+				} else {
+					entity.remove();
+				}
+			}
 		}
 	}
 
 	@Override
 	public IPacket<?> createSpawnPacket() {
 		return NetworkHooks.getEntitySpawningPacket(this);
-	}
-
-	@Override
-	public void writeSpawnData(PacketBuffer buffer) {
-
-	}
-
-	@Override
-	public void readSpawnData(PacketBuffer additionalData) {
-
 	}
 }

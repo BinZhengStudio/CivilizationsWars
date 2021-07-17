@@ -6,30 +6,86 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.inventory.InventoryHelper;
 import net.minecraft.item.BlockItemUseContext;
+import net.minecraft.item.ItemStack;
 import net.minecraft.state.DirectionProperty;
 import net.minecraft.state.StateContainer;
 import net.minecraft.state.properties.BlockStateProperties;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.ActionResultType;
-import net.minecraft.util.Hand;
-import net.minecraft.util.Mirror;
-import net.minecraft.util.Rotation;
+import net.minecraft.util.*;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockRayTraceResult;
+import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
+import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.fml.network.NetworkHooks;
+import xyz.bzstudio.civilizationswars.entity.LightParticleEntity;
 import xyz.bzstudio.civilizationswars.tileentity.CatapultControllerTileEntity;
-import xyz.bzstudio.civilizationswars.tileentity.ObjectCompressorTileEntity;
 
 import javax.annotation.Nullable;
 
 public class CatapultControllerBlock extends ContainerBlock {
 	public static final DirectionProperty FACING = BlockStateProperties.FACING;
-	private int amount = 0;
+	private static final int MAX_STACK_SIZE = 25;
+	private static ServerWorld world;
 
 	protected CatapultControllerBlock() {
 		super(AbstractBlock.Properties.create(Material.IRON).setRequiresTool().hardnessAndResistance(5.0F, 6.0F).sound(SoundType.METAL).tickRandomly());
+	}
+
+	public static void fireLightParticle(BlockPos pos, int[] offset) {
+		((CatapultControllerTileEntity) world.getTileEntity(pos)).getInventory().setInventorySlotContents(0, ItemStack.EMPTY);
+
+		int stackSize = getStackSize(world, pos);
+		int x_offset = offset[0];
+		int y_offset = offset[1];
+		int z_offset = offset[2];
+		Direction facing = world.getBlockState(pos).get(FACING);
+		BlockPos spawnPos = pos.offset(facing, MathHelper.ceil(stackSize + LightParticleEntity.MAX_EXPLOSION_POWER * stackSize / MAX_STACK_SIZE) + 1);
+
+		double accelX = 0.0D;
+		double accelY = 0.0D;
+		double accelZ = 0.0D;
+
+		if (facing.getAxis() == Direction.Axis.X) {
+			accelY = Math.tan(y_offset * (Math.PI / 180.0D));
+			accelZ = Math.tan(z_offset * (Math.PI / 180.0D));
+		} else if (facing.getAxis() == Direction.Axis.Y) {
+			accelX = Math.tan(x_offset * (Math.PI / 180.0D));
+			accelZ = Math.tan(z_offset * (Math.PI / 180.0D));
+		} else if (facing.getAxis() == Direction.Axis.Z) {
+			accelX = Math.tan(x_offset * (Math.PI / 180.0D));
+			accelY = Math.tan(y_offset * (Math.PI / 180.0D));
+		}
+
+		LightParticleEntity entity = new LightParticleEntity(spawnPos.getX(), spawnPos.getY(), spawnPos.getZ(), facing.getXOffset() + accelX, facing.getYOffset() + accelY, facing.getZOffset() + accelZ, LightParticleEntity.MAX_EXPLOSION_POWER * stackSize / MAX_STACK_SIZE, world);
+		world.addEntity(entity);
+		System.out.println(x_offset);
+		System.out.println(y_offset);
+		System.out.println(z_offset);
+		System.out.println(accelX);
+		System.out.println(accelY);
+		System.out.println(accelZ);
+//		for (int i = 0; i < 10; i++) {
+//			if (i == 0) {
+//				world.createExplosion((Entity) null, pos.getX(), pos.getY() + size + 7, pos.getZ(), 3.0F, Explosion.Mode.NONE);
+//			} else {
+//				world.createExplosion((Entity) null, pos.getX(), pos.getY() + size + 5 * (i + 1), pos.getZ(), 3.0F, Explosion.Mode.NONE);
+//			}
+//		}
+	}
+
+	private static int getStackSize(World world, BlockPos pos) {
+		BlockState controller = world.getBlockState(pos);
+		int stackSize = 0;
+		if (controller.getBlock() == BlockList.CATAPULT_CONTROLLER) {
+			for (BlockState catapult = world.getBlockState(pos.offset(controller.get(FACING), stackSize + 1));
+				 catapult.getBlock() == BlockList.ELECTROMAGNETIC_CATAPULT && catapult.get(ElectromagneticCatapultBlock.FACING) == controller.get(FACING);
+				 catapult = world.getBlockState(pos.offset(controller.get(FACING), stackSize + 1)))
+				stackSize++;
+			if (stackSize > MAX_STACK_SIZE) stackSize = MAX_STACK_SIZE;
+		}
+		return stackSize;
 	}
 
 	@Override
@@ -37,8 +93,8 @@ public class CatapultControllerBlock extends ContainerBlock {
 		if (worldIn.isRemote) {
 			return ActionResultType.SUCCESS;
 		} else {
-			this.checkCatapults(worldIn, pos, player);
 			TileEntity tileEntity = worldIn.getTileEntity(pos);
+			world = (ServerWorld) worldIn;
 			if (tileEntity instanceof CatapultControllerTileEntity) {
 				NetworkHooks.openGui((ServerPlayerEntity) player, (CatapultControllerTileEntity) tileEntity, (buf) -> buf.writeBlockPos(tileEntity.getPos()));
 			}
@@ -50,28 +106,12 @@ public class CatapultControllerBlock extends ContainerBlock {
 	public void onReplaced(BlockState state, World worldIn, BlockPos pos, BlockState newState, boolean isMoving) { // 将物品槽中的物品掉出
 		if (!state.matchesBlock(newState.getBlock())) {
 			TileEntity tileentity = worldIn.getTileEntity(pos);
-			if (tileentity instanceof ObjectCompressorTileEntity) {
-				InventoryHelper.dropInventoryItems(worldIn, pos, ((ObjectCompressorTileEntity) tileentity).getInventory());
+			if (tileentity instanceof CatapultControllerTileEntity) {
+				InventoryHelper.dropInventoryItems(worldIn, pos, ((CatapultControllerTileEntity) tileentity).getInventory());
 				worldIn.updateComparatorOutputLevel(pos, this);
 			}
 			super.onReplaced(state, worldIn, pos, newState, isMoving);
 		}
-	}
-
-	private void checkCatapults(World world, BlockPos pos, PlayerEntity player) {
-		BlockState controller = world.getBlockState(pos);
-		this.amount = 0;
-		if (controller.getBlock() == this) {
-			for (BlockState catapult = world.getBlockState(pos.offset(controller.get(FACING), this.amount + 1));
-				 catapult.getBlock() == BlockList.ELECTROMAGNETIC_CATAPULT && catapult.get(ElectromagneticCatapultBlock.FACING) == controller.get(FACING);
-				 catapult = world.getBlockState(pos.offset(controller.get(FACING), this.amount + 1))) this.amount++;
-			System.out.println(this.amount);
-		}
-		// TODO 发包
-	}
-
-	public int getCatapultNum() {
-		return amount;
 	}
 
 	@Override

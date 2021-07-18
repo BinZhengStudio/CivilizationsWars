@@ -8,11 +8,13 @@
   "block.civilizationswars.electromagnetic_catapult": "Electromagnetic Catapult",
   "block.civilizationswars.object_compressor": "Object Compressor",
 
+  "death.attack.lightParticle": "%1$s killed by Light Particle",
+
+  "entity.civilizationswars.light_particle": "Light Particle",
+
   "gui.civilizationswars.catapult_controller": "Catapult Controller",
   "gui.civilizationswars.ceramics_maker": "Ceramics Maker",
   "gui.civilizationswars.object_compressor": "Object Compressor",
-
-  "entity.civilizationswars.light_particle": "Light Particle",
 
   "item.civilizationswars.coil": "Coil" ,
   "item.civilizationswars.copper_ingot":"Copper Ingot" ,

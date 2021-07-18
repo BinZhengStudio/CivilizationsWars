@@ -5,6 +5,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.fml.network.NetworkEvent;
 import xyz.bzstudio.civilizationswars.block.CatapultControllerBlock;
 
+import java.util.Objects;
 import java.util.function.Supplier;
 
 public class CLightParticleFirePacket {
@@ -27,7 +28,11 @@ public class CLightParticleFirePacket {
 	}
 
 	public void consumer(Supplier<NetworkEvent.Context> context) {
-		context.get().enqueueWork(() -> CatapultControllerBlock.fireLightParticle(this.pos, this.offset));
+		try	{
+			context.get().enqueueWork(() -> CatapultControllerBlock.fireLightParticle(this.pos, this.offset, Objects.requireNonNull(context.get().getSender())));
+		} catch (NullPointerException e) {
+			e.printStackTrace();
+		}
 		context.get().setPacketHandled(true);
 	}
 

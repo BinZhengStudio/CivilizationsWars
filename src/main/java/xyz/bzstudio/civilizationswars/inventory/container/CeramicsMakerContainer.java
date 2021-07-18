@@ -7,6 +7,7 @@ import net.minecraft.inventory.container.ClickType;
 import net.minecraft.inventory.container.Container;
 import net.minecraft.inventory.container.Slot;
 import net.minecraft.item.ItemStack;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.BlockPos;
 import xyz.bzstudio.civilizationswars.block.BlockList;
 import xyz.bzstudio.civilizationswars.block.CeramicsMakerBlock;
@@ -16,32 +17,33 @@ import xyz.bzstudio.civilizationswars.tileentity.CeramicsMakerTileEntity;
 public class CeramicsMakerContainer extends Container {
 	public CeramicsMakerContainer(int id, PlayerInventory playerInventory, BlockPos pos) {
 		super(ContainerTypeList.CERAMICS_MAKER, id);
-		CeramicsMakerTileEntity tileEntity = (CeramicsMakerTileEntity) playerInventory.player.world.getTileEntity(pos);
-
-		this.addSlot(new SelectSlot(new ItemStack(ItemList.CERAMICS_CYLINDER_MODEL), 12, 20) {
-			@Override
-			public void onClick(PlayerEntity player) {
-				BlockState state = player.world.getBlockState(pos);
-				if (state.getBlock() == BlockList.CERAMICS_MAKER) {
-					if (state.get(CeramicsMakerBlock.PLACED_CLAY)) {
-						tileEntity.getInventory().setInventorySlotContents(0, this.getStack());
+		TileEntity tileEntity = playerInventory.player.world.getTileEntity(pos);
+		if (tileEntity instanceof CeramicsMakerTileEntity) {
+			this.addSlot(new SelectSlot(new ItemStack(ItemList.CERAMICS_CYLINDER_MODEL), 12, 20) {
+				@Override
+				public void onClick(PlayerEntity player) {
+					BlockState state = player.world.getBlockState(pos);
+					if (state.getBlock() == BlockList.CERAMICS_MAKER) {
+						if (state.get(CeramicsMakerBlock.PLACED_CLAY)) {
+							((CeramicsMakerTileEntity) tileEntity).getInventory().setInventorySlotContents(0, this.getStack());
+						}
 					}
 				}
-			}
-		});
+			});
 
-		this.addSlot(new Slot(tileEntity.getInventory(), 0, 145, 34) {
-			@Override
-			public boolean isItemValid(ItemStack stack) {
-				return false;
-			}
+			this.addSlot(new Slot(((CeramicsMakerTileEntity) tileEntity).getInventory(), 0, 145, 34) {
+				@Override
+				public boolean isItemValid(ItemStack stack) {
+					return false;
+				}
 
-			@Override
-			public ItemStack onTake(PlayerEntity thePlayer, ItemStack stack) {
-				playerInventory.player.world.setBlockState(pos, BlockList.CERAMICS_MAKER.getDefaultState());
-				return super.onTake(thePlayer, stack);
-			}
-		});
+				@Override
+				public ItemStack onTake(PlayerEntity thePlayer, ItemStack stack) {
+					playerInventory.player.world.setBlockState(pos, BlockList.CERAMICS_MAKER.getDefaultState());
+					return super.onTake(thePlayer, stack);
+				}
+			});
+		}
 
 		// 添加玩家背包物品槽
 		for (int i = 0; i < 3; ++i) {

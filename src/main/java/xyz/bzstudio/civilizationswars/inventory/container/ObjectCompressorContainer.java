@@ -5,15 +5,18 @@ import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.container.Container;
 import net.minecraft.inventory.container.Slot;
 import net.minecraft.item.ItemStack;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.BlockPos;
 import xyz.bzstudio.civilizationswars.tileentity.ObjectCompressorTileEntity;
 
 public class ObjectCompressorContainer extends Container {
 	public ObjectCompressorContainer(int id, PlayerInventory playerInventory, BlockPos pos) {
 		super(ContainerTypeList.OBJECT_COMPRESSOR, id);
-		ObjectCompressorTileEntity tileEntity = (ObjectCompressorTileEntity) playerInventory.player.world.getTileEntity(pos);
+		TileEntity tileEntity = playerInventory.player.world.getTileEntity(pos);
 
-		this.addSlot(new Slot(tileEntity.getInventory(), 0, 105, 34));
+		if (tileEntity instanceof ObjectCompressorTileEntity) {
+			this.addSlot(new Slot(((ObjectCompressorTileEntity) tileEntity).getInventory(), 0, 105, 34));
+		}
 
 		// 添加玩家背包物品槽
 		for (int i = 0; i < 3; ++i) {

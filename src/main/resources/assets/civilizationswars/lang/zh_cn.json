@@ -8,6 +8,8 @@
   "block.civilizationswars.electromagnetic_catapult": "光粒发射器",
   "block.civilizationswars.object_compressor": "物质压缩机",
 
+  "death.attack.lightParticle": "%1$s受到了黑暗森林打击",
+
   "entity.civilizationswars.light_particle": "光粒",
 
   "gui.civilizationswars.catapult_controller": "弹射控制器",

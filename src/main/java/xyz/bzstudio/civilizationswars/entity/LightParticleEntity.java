@@ -4,7 +4,7 @@ import net.minecraft.block.Blocks;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.entity.projectile.DamagingProjectileEntity;
 import net.minecraft.network.IPacket;
 import net.minecraft.util.math.AxisAlignedBB;
@@ -14,6 +14,7 @@ import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.Explosion;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.network.NetworkHooks;
+import xyz.bzstudio.civilizationswars.util.DamageSourceList;
 
 import java.util.List;
 
@@ -41,6 +42,11 @@ public class LightParticleEntity extends DamagingProjectileEntity {
 		this.setRotation(shooter.rotationYaw, shooter.rotationPitch);
 	}
 
+	public LightParticleEntity(Entity shooter, BlockPos spawnPos, double accelX, double accelY, double accelZ, float explosionPower, World world) {
+		this(spawnPos.getX(), spawnPos.getY(), spawnPos.getZ(), accelX, accelY, accelZ, explosionPower, world);
+		this.setShooter(shooter);
+	}
+
 	@Override
 	public void tick() {
 		super.tick();
@@ -53,7 +59,7 @@ public class LightParticleEntity extends DamagingProjectileEntity {
 	protected void onImpact(RayTraceResult result) {
 		super.onImpact(result);
 		if (!this.world.isRemote) {
-			float radius = 10 * this.explosionPower / MAX_EXPLOSION_POWER;
+			float radius = 20 * this.explosionPower / MAX_EXPLOSION_POWER;
 			this.destroyBlock(radius);
 			this.killEntity(radius);
 			this.remove();
@@ -82,17 +88,24 @@ public class LightParticleEntity extends DamagingProjectileEntity {
 	}
 
 	private void killEntity(float radius) {
-		float killRadius = radius * 2;
+		float killRadius = radius * 1.5F;
 		AxisAlignedBB axisAlignedBB = new AxisAlignedBB(this.getPosX() - killRadius, this.getPosY() - killRadius, this.getPosZ() - killRadius, this.getPosX() + killRadius, this.getPosY() + killRadius, this.getPosZ() + killRadius);
-		List<Entity> entities = this.world.getEntitiesWithinAABBExcludingEntity((Entity) null, axisAlignedBB);
+		List<Entity> entities = this.world.getEntitiesWithinAABBExcludingEntity(this, axisAlignedBB);
 		for (Entity entity : entities) {
-			if (this.getDistanceSq(entity) < killRadius * killRadius && entity != this) {
-				if (entity instanceof PlayerEntity) {
-					if (!((PlayerEntity) entity).isCreative() && !((PlayerEntity) entity).isSpectator())
-						((PlayerEntity) entity).setHealth(0.0F);
+			if (this.getDistanceSq(entity) < killRadius * killRadius) {
+				if (entity instanceof LivingEntity) {
+					LivingEntity livingEntity = (LivingEntity) entity;
+					livingEntity.attackEntityFrom(DamageSourceList.LIGHT_PARTICLE, livingEntity.getMaxHealth());
 				} else {
 					entity.remove();
 				}
+			}
+		}
+
+		List<ItemEntity> itemEntities = this.world.getEntitiesWithinAABB(ItemEntity.class, axisAlignedBB);
+		for (ItemEntity itemEntity : itemEntities) {
+			if (this.getDistanceSq(itemEntity) < killRadius * killRadius) {
+				itemEntity.remove();
 			}
 		}
 	}

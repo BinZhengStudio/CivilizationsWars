@@ -9,7 +9,7 @@ import xyz.bzstudio.civilizationswars.CivilizationsWars;
 
 public class EntityTypeList {
 	public static final DeferredRegister<EntityType<?>> ENTITY_TYPE = DeferredRegister.create(ForgeRegistries.ENTITIES, CivilizationsWars.MODID);
-	public static final EntityType<LightParticleEntity> LIGHT_PARTICLE = register("light_particle", EntityType.Builder.<LightParticleEntity>create(LightParticleEntity::new, EntityClassification.MISC).size(0.0F, 0.0F).trackingRange(10).updateInterval(20).immuneToFire().disableSummoning().build("light_particle"));
+	public static final EntityType<LightParticleEntity> LIGHT_PARTICLE = register("light_particle", EntityType.Builder.<LightParticleEntity>create(LightParticleEntity::new, EntityClassification.MISC).size(0.5F, 0.5F).trackingRange(10).updateInterval(20).immuneToFire().disableSummoning().build("light_particle"));
 
 	private static <T extends Entity> EntityType<T> register(String name, EntityType<T> type) {
 		ENTITY_TYPE.register(name, () -> type);

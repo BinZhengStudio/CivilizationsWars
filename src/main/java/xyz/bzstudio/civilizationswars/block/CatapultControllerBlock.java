@@ -45,7 +45,7 @@ public class CatapultControllerBlock extends ContainerBlock {
 
 			if (x_offset <= 30 && x_offset >= -30 && y_offset <= 30 && y_offset >= -30 && z_offset <= 30 && z_offset >= -30) {
 				Direction facing = world.getBlockState(pos).get(FACING);
-				BlockPos spawnPos = pos.offset(facing, MathHelper.ceil(stackSize + LightParticleEntity.MAX_EXPLOSION_POWER * stackSize / MAX_STACK_SIZE) + 1);
+				BlockPos spawnPos = pos.offset(facing, MathHelper.ceil(stackSize + LightParticleEntity.MAX_EXPLOSION_POWER * stackSize / MAX_STACK_SIZE) + 2);
 
 				double accelX = 0.0D;
 				double accelY = 0.0D;

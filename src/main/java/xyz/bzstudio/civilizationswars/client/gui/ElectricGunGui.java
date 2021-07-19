@@ -34,7 +34,7 @@ public class ElectricGunGui extends AbstractGui {
 		this.totalCharge = ((ElectromagneticEjectionGunItem) gun.getItem()).getTotalCharge();
 	}
 
-	public void render() { // TODO
+	public void render() {
 		RenderSystem.color4f(1.0F, 1.0F, 1.0F, 1.0F);
 		this.minecraft.getTextureManager().bindTexture(TEXTURE);
 		blit(matrixStack, width / 2 - 44, height - 36, 0, 0, 88, 13, 88, 26);

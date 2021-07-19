@@ -5,6 +5,8 @@
   "cmd.civilizationswars.light_particle.text1": "黑暗森林打击警告",
   "cmd.civilizationswars.light_particle.text2": "玩家",
   "cmd.civilizationswars.light_particle.text3": "向太阳发射了光粒，太阳将被摧毁",
+  "cmd.civilizationswars.light_particle.text4": "太阳已被摧毁",
+  "cmd.civilizationswars.light_particle.text5": "感受黑暗吧",
 
   "block.civilizationswars.catapult_controller": "Catapult Controller",
   "block.civilizationswars.ceramics_maker": "Ceramics Maker",

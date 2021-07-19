@@ -35,7 +35,7 @@ public class LightParticleEntity extends DamagingProjectileEntity {
 	public static final float MAX_EXPLOSION_POWER = 5.0F;
 	private static final int TOTAL_ATTACK_TIME = 160;
 	private static final int WARNING_TIME = 60;
-	private float explosionPower;
+	private float explosionPower = 0;
 	private int attackTime = 0;
 
 	public LightParticleEntity(EntityType<? extends DamagingProjectileEntity> entityTypeIn, World worldIn) {
@@ -50,12 +50,6 @@ public class LightParticleEntity extends DamagingProjectileEntity {
 		this.accelerationY = accelY;
 		this.accelerationZ = accelZ;
 		this.explosionPower = explosionPower;
-	}
-
-	public LightParticleEntity(LivingEntity shooter, double accelX, double accelY, double accelZ, float explosionPower, World world) {
-		this(shooter.getPosX(), shooter.getPosY(), shooter.getPosZ(), accelX, accelY, accelZ, explosionPower, world);
-		this.setShooter(shooter);
-		this.setRotation(shooter.rotationYaw, shooter.rotationPitch);
 	}
 
 	public LightParticleEntity(Entity shooter, BlockPos spawnPos, double accelX, double accelY, double accelZ, float explosionPower, World world) {
@@ -86,7 +80,8 @@ public class LightParticleEntity extends DamagingProjectileEntity {
 						if (this.attackTime >= TOTAL_ATTACK_TIME) {
 							serverWorld.getGameRules().get(GameRules.DO_DAYLIGHT_CYCLE).set(false, ((ServerWorld) this.world).getServer());
 							serverWorld.setDayTime(18000);
-							serverWorld.getServer().getCommandManager().handleCommand(this.getCommandSource(), new TranslationTextComponent("cmd.civilizationswars.light_particle.cmd4").getString());
+							serverWorld.getServer().getCommandManager().handleCommand(this.getCommandSource(), "/title @a title [{\"text\":\"" + new TranslationTextComponent("cmd.civilizationswars.light_particle.text4").getString() + "\",\"color\":\"gold\",\"bold\":false,\"italic\":false,\"underlined\":false,\"strikethrough\":false,\"obfuscated\":false}]");
+							serverWorld.getServer().getCommandManager().handleCommand(this.getCommandSource(), "/title @a subtitle [{\"text\":\"" + new TranslationTextComponent("cmd.civilizationswars.light_particle.text5").getString() + "\",\"color\":\"yellow\",\"bold\":false,\"italic\":false,\"underlined\":false,\"strikethrough\":false,\"obfuscated\":false}]");
 							this.remove();
 						}
 					}
@@ -153,20 +148,27 @@ public class LightParticleEntity extends DamagingProjectileEntity {
 		}
 	}
 
-	// TODO
 	@Override
 	public void readAdditional(CompoundNBT compound) {
 		super.readAdditional(compound);
+		if (compound.contains("explodePower")) {
+			this.explosionPower = compound.getFloat("explodePower");
+		}
+		if (compound.contains("attackTime")) {
+			this.attackTime = compound.getInt("attackTime");
+		}
 	}
 
 	@Override
 	public void writeAdditional(CompoundNBT compound) {
 		super.writeAdditional(compound);
+		compound.putFloat("explodePower", this.explosionPower);
+		compound.putInt("attackTime", this.attackTime);
 	}
 
 	@Override
 	public CommandSource getCommandSource() {
-		return new CommandSource(ICommandSource.DUMMY, this.world instanceof ServerWorld ? Vector3d.copy(((ServerWorld) this.world).getSpawnPoint()) : Vector3d.ZERO, Vector2f.ZERO, this.world instanceof ServerWorld ? (ServerWorld)this.world : null, 3, "Server", new StringTextComponent("Server"), this.world.getServer(), (Entity) null);
+		return new CommandSource(ICommandSource.DUMMY, this.world instanceof ServerWorld ? Vector3d.copy(((ServerWorld) this.world).getSpawnPoint()) : Vector3d.ZERO, Vector2f.ZERO, this.world instanceof ServerWorld ? (ServerWorld) this.world : null, 3, "Server", new StringTextComponent("Server"), this.world.getServer(), (Entity) null);
 	}
 
 	@Override

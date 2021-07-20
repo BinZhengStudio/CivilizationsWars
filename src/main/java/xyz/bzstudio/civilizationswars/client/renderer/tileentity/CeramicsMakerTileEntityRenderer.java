@@ -10,6 +10,7 @@ import net.minecraft.client.renderer.ItemRenderer;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.model.IBakedModel;
 import net.minecraft.client.renderer.model.ItemCameraTransforms;
+import net.minecraft.client.renderer.model.ModelRenderer;
 import net.minecraft.client.renderer.tileentity.TileEntityRenderer;
 import net.minecraft.client.renderer.tileentity.TileEntityRendererDispatcher;
 import net.minecraft.item.ItemStack;
@@ -23,18 +24,29 @@ import net.minecraftforge.client.model.data.EmptyModelData;
 import net.minecraftforge.client.model.data.IModelData;
 import xyz.bzstudio.civilizationswars.CivilizationsWars;
 import xyz.bzstudio.civilizationswars.block.CeramicsMakerBlock;
-import xyz.bzstudio.civilizationswars.client.renderer.tileentity.model.CeramicsMakerModel;
 import xyz.bzstudio.civilizationswars.item.ItemList;
 import xyz.bzstudio.civilizationswars.tileentity.CeramicsMakerTileEntity;
-
-import java.util.Objects;
 
 @OnlyIn(Dist.CLIENT)
 public class CeramicsMakerTileEntityRenderer extends TileEntityRenderer<CeramicsMakerTileEntity> {
 	private static final ResourceLocation TEXTURE = new ResourceLocation(CivilizationsWars.MODID, "textures/entity/ceramics_maker.png");
+	private final ModelRenderer body;
 
 	public CeramicsMakerTileEntityRenderer(TileEntityRendererDispatcher rendererDispatcherIn) {
 		super(rendererDispatcherIn);
+
+		this.body = new ModelRenderer(48, 15, 0, 0);
+		this.body.setRotationPoint(0.0F, 0.0F, 0.0F);
+		this.body.setTextureOffset(0, 0).addBox(-1.0F, 12.0F, -1.0F, 2.0F, 1.0F, 2.0F, 0.0F, false);
+		this.body.setTextureOffset(21, 5).addBox(-3.0F, 13.0F, -8.0F, 6.0F, 3.0F, 1.0F, 0.0F, false);
+		this.body.setTextureOffset(3, 2).addBox(-3.0F, 13.0F, 7.0F, 6.0F, 3.0F, 1.0F, 0.0F, false);
+		this.body.setTextureOffset(12, 3).addBox(-5.0F, 13.0F, -7.0F, 10.0F, 3.0F, 1.0F, 0.0F, false);
+		this.body.setTextureOffset(12, 4).addBox(-5.0F, 13.0F, 6.0F, 10.0F, 3.0F, 1.0F, 0.0F, false);
+		this.body.setTextureOffset(0, 0).addBox(-6.0F, 13.0F, -6.0F, 12.0F, 3.0F, 12.0F, 0.0F, false);
+		this.body.setTextureOffset(20, 3).addBox(-8.0F, 13.0F, -3.0F, 1.0F, 3.0F, 6.0F, 0.0F, false);
+		this.body.setTextureOffset(16, 0).addBox(-7.0F, 13.0F, -5.0F, 1.0F, 3.0F, 10.0F, 0.0F, false);
+		this.body.setTextureOffset(22, 0).addBox(6.0F, 13.0F, -5.0F, 1.0F, 3.0F, 10.0F, 0.0F, false);
+		this.body.setTextureOffset(12, 5).addBox(7.0F, 13.0F, -3.0F, 1.0F, 3.0F, 6.0F, 0.0F, false);
 	}
 
 	@Override
@@ -42,14 +54,9 @@ public class CeramicsMakerTileEntityRenderer extends TileEntityRenderer<Ceramics
 		matrixStackIn.push();
 		matrixStackIn.translate(0.5D, 0.0D, 0.5D);
 		if (tileEntityIn.hasPlayerUsing()) {
-			try {
-				matrixStackIn.rotate(Vector3f.YP.rotationDegrees(Objects.requireNonNull(tileEntityIn.getWorld()).getGameTime() % 360.0F * 10.0F));
-			} catch (NullPointerException e) {
-				e.printStackTrace();
-			}
+			matrixStackIn.rotate(Vector3f.YP.rotationDegrees(tileEntityIn.getWorld().getGameTime() % 360.0F * 20.0F));
 		}
-		CeramicsMakerModel model = new CeramicsMakerModel(RenderType::getEntityCutout);
-		model.render(matrixStackIn, bufferIn.getBuffer(RenderType.getEntityCutout(TEXTURE)), combinedLightIn, combinedOverlayIn, 1.0F, 1.0F, 1.0F, 1.0F);
+		this.body.render(matrixStackIn, bufferIn.getBuffer(RenderType.getEntityCutout(TEXTURE)), combinedLightIn, combinedOverlayIn);
 		matrixStackIn.pop();
 
 		if (tileEntityIn.getBlockState().get(CeramicsMakerBlock.PLACED_CLAY)) {
@@ -71,16 +78,17 @@ public class CeramicsMakerTileEntityRenderer extends TileEntityRenderer<Ceramics
 	}
 
 	private void renderBlock(BlockRendererDispatcher renderer, BlockState state, CeramicsMakerTileEntity tileEntity, MatrixStack matrixStackIn, IRenderTypeBuffer bufferIn, int combinedLightIn, int combinedOverlayIn, IModelData data) {
+		int degree = Math.toIntExact(tileEntity.getWorld().getGameTime() % 360 * 20);
+		double radian = -(degree + 135) * Math.PI / 180.0D;
+
 		matrixStackIn.push();
-		matrixStackIn.translate(0.325D, 1.D, 0.325D);
-		matrixStackIn.scale(0.35F, 0.35F, 0.35F);
 		if (tileEntity.hasPlayerUsing()) {
-			try {
-				matrixStackIn.rotate(Vector3f.YP.rotationDegrees(Objects.requireNonNull(tileEntity.getWorld()).getGameTime() % 360.0F * 10.0F));
-			} catch (NullPointerException e) {
-				e.printStackTrace();
-			}
+			matrixStackIn.translate(Math.cos(radian) * Math.sqrt(0.06125) + 0.5D, 1.D, Math.sin(radian) * Math.sqrt(0.06125) + 0.5D);
+			matrixStackIn.rotate(Vector3f.YP.rotationDegrees(degree));
+		} else {
+			matrixStackIn.translate(0.325D, 1.D, 0.325D);
 		}
+		matrixStackIn.scale(0.35F, 0.35F, 0.35F);
 		renderer.renderBlock(state, matrixStackIn, bufferIn, combinedLightIn, combinedOverlayIn, data);
 		matrixStackIn.pop();
 	}
@@ -90,11 +98,7 @@ public class CeramicsMakerTileEntityRenderer extends TileEntityRenderer<Ceramics
 		matrixStackIn.translate(0.5D, 1.25D, 0.5D);
 		matrixStackIn.scale(1, 1, 1);
 		if (tileEntity.hasPlayerUsing()) {
-			try {
-				matrixStackIn.rotate(Vector3f.YP.rotationDegrees(Objects.requireNonNull(tileEntity.getWorld()).getGameTime() % 360.0F * 10.0F));
-			} catch (NullPointerException e) {
-				e.printStackTrace();
-			}
+			matrixStackIn.rotate(Vector3f.YP.rotationDegrees(tileEntity.getWorld().getGameTime() % 360.0F * 20.0F));
 		}
 		IBakedModel model = renderer.getItemModelWithOverrides(stack, world, null);
 		renderer.renderItem(stack, ItemCameraTransforms.TransformType.FIXED, false, matrixStackIn, bufferIn, combinedLightIn, combinedOverlayIn, model);

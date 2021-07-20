@@ -25,7 +25,7 @@ public class CeramicsMakerBlock extends ContainerBlock {
 	public static final BooleanProperty PLACED_CLAY = BooleanProperty.create("placed_clay");
 
 	public CeramicsMakerBlock() {
-		super(Properties.create(Material.IRON).sound(SoundType.METAL).setRequiresTool());
+		super(Properties.create(Material.IRON).sound(SoundType.METAL).setRequiresTool().notSolid());
 		this.setDefaultState(this.getStateContainer().getBaseState().with(PLACED_CLAY, false));
 	}
 

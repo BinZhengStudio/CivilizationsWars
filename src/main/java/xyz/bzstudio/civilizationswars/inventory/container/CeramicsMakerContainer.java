@@ -33,7 +33,7 @@ public class CeramicsMakerContainer extends Container {
 					BlockState state = player.world.getBlockState(pos);
 					if (state.getBlock() == BlockList.CERAMICS_MAKER) {
 						if (state.get(CeramicsMakerBlock.PLACED_CLAY)) {
-							this.inventory.setInventorySlotContents(0, this.getStack());
+							CeramicsMakerContainer.this.inventory.setInventorySlotContents(0, this.getStack());
 						}
 					}
 				}

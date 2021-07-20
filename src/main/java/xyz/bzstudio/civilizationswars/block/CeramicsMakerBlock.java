@@ -5,7 +5,6 @@ import net.minecraft.block.material.Material;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.inventory.InventoryHelper;
-import net.minecraft.inventory.container.INamedContainerProvider;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.state.BooleanProperty;
@@ -32,19 +31,23 @@ public class CeramicsMakerBlock extends ContainerBlock {
 
 	@Override
 	public ActionResultType onBlockActivated(BlockState state, World worldIn, BlockPos pos, PlayerEntity player, Hand handIn, BlockRayTraceResult hit) {
-		if (!worldIn.isRemote && state.getBlock() == this) {
-			ItemStack heldItem = player.getHeldItem(handIn);
-			CeramicsMakerTileEntity tileEntity = (CeramicsMakerTileEntity) worldIn.getTileEntity(pos);
+		if (!worldIn.isRemote) {
+			if (worldIn.getBlockState(pos.up()).getMaterial() == Material.AIR) {
+				ItemStack heldItem = player.getHeldItem(handIn);
+				TileEntity tileEntity = worldIn.getTileEntity(pos);
 
-			// 检测玩家手持物品，方块是否正确以及方块上是否已经放置黏土
-			if (heldItem.getItem() == Items.CLAY_BALL && !state.get(PLACED_CLAY)) {
-				worldIn.setBlockState(pos, this.getDefaultState().with(PLACED_CLAY, true));
-				tileEntity.getInventory().setInventorySlotContents(0, new ItemStack(Items.CLAY_BALL));
-				if (!player.isCreative()) { // 检测玩家是不是创造模式
-					heldItem.shrink(1);
+				if (tileEntity instanceof CeramicsMakerTileEntity) {
+					if (heldItem.getItem() == Items.CLAY_BALL && !state.get(PLACED_CLAY)) { // 检测玩家手持物品，方块是否正确以及方块上是否已经放置黏土
+						worldIn.setBlockState(pos, this.getDefaultState().with(PLACED_CLAY, true));
+						((CeramicsMakerTileEntity) tileEntity).setInventorySlotContents(0, new ItemStack(Items.CLAY_BALL));
+						if (!player.isCreative()) { // 检测玩家是不是创造模式
+							heldItem.shrink(1);
+						}
+					} else if (state.get(PLACED_CLAY) && handIn == Hand.MAIN_HAND) {
+						NetworkHooks.openGui((ServerPlayerEntity) player, (CeramicsMakerTileEntity) tileEntity, (buf) -> buf.writeBlockPos(tileEntity.getPos()));
+					}
 				}
-			} else if (state.get(PLACED_CLAY) && handIn == Hand.MAIN_HAND) {
-				NetworkHooks.openGui((ServerPlayerEntity) player, tileEntity, (buf) -> buf.writeBlockPos(tileEntity.getPos()));
+
 			}
 			return ActionResultType.CONSUME;
 		}
@@ -55,7 +58,7 @@ public class CeramicsMakerBlock extends ContainerBlock {
 		if (!state.matchesBlock(newState.getBlock())) {
 			TileEntity tileentity = worldIn.getTileEntity(pos);
 			if (tileentity instanceof CeramicsMakerTileEntity) {
-				InventoryHelper.dropInventoryItems(worldIn, pos, ((CeramicsMakerTileEntity) tileentity).getInventory());
+				InventoryHelper.dropInventoryItems(worldIn, pos, (CeramicsMakerTileEntity) tileentity);
 				worldIn.updateComparatorOutputLevel(pos, this);
 			}
 

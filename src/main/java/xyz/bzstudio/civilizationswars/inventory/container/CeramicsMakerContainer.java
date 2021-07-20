@@ -3,6 +3,7 @@ package xyz.bzstudio.civilizationswars.inventory.container;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
+import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.container.ClickType;
 import net.minecraft.inventory.container.Container;
 import net.minecraft.inventory.container.Slot;
@@ -15,23 +16,30 @@ import xyz.bzstudio.civilizationswars.item.ItemList;
 import xyz.bzstudio.civilizationswars.tileentity.CeramicsMakerTileEntity;
 
 public class CeramicsMakerContainer extends Container {
+	private IInventory inventory;
+
 	public CeramicsMakerContainer(int id, PlayerInventory playerInventory, BlockPos pos) {
 		super(ContainerTypeList.CERAMICS_MAKER, id);
+
 		TileEntity tileEntity = playerInventory.player.world.getTileEntity(pos);
+
 		if (tileEntity instanceof CeramicsMakerTileEntity) {
+			this.inventory = (CeramicsMakerTileEntity) tileEntity;
+			this.inventory.openInventory(playerInventory.player);
+
 			this.addSlot(new SelectSlot(new ItemStack(ItemList.CERAMICS_CYLINDER_MODEL), 12, 20) {
 				@Override
 				public void onClick(PlayerEntity player) {
 					BlockState state = player.world.getBlockState(pos);
 					if (state.getBlock() == BlockList.CERAMICS_MAKER) {
 						if (state.get(CeramicsMakerBlock.PLACED_CLAY)) {
-							((CeramicsMakerTileEntity) tileEntity).getInventory().setInventorySlotContents(0, this.getStack());
+							this.inventory.setInventorySlotContents(0, this.getStack());
 						}
 					}
 				}
 			});
 
-			this.addSlot(new Slot(((CeramicsMakerTileEntity) tileEntity).getInventory(), 0, 145, 34) {
+			this.addSlot(new Slot(this.inventory, 0, 145, 34) {
 				@Override
 				public boolean isItemValid(ItemStack stack) {
 					return false;
@@ -63,17 +71,25 @@ public class CeramicsMakerContainer extends Container {
 	}
 
 	@Override
+	public void onContainerClosed(PlayerEntity playerIn) {
+		super.onContainerClosed(playerIn);
+		this.inventory.closeInventory(playerIn);
+	}
+
+	@Override
 	public ItemStack transferStackInSlot(PlayerEntity playerIn, int index) {
 		ItemStack itemStack = ItemStack.EMPTY;
 		Slot slot = this.inventorySlots.get(index);
 		if (slot != null && slot.getHasStack()) {
 			ItemStack itemStack1 = slot.getStack();
 			itemStack = itemStack1.copy();
-			if (index < 2) {
+			if (index == 0) {
+				return ItemStack.EMPTY;
+			} else if (index == 1) {
 				if (!this.mergeItemStack(itemStack1, 2, this.inventorySlots.size(), true)) {
 					return ItemStack.EMPTY;
 				}
-			} else if (!this.mergeItemStack(itemStack1, 2, this.inventorySlots.size(), false)) {
+			} else {
 				return ItemStack.EMPTY;
 			}
 

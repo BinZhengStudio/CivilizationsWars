@@ -10,6 +10,7 @@ import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import xyz.bzstudio.civilizationswars.block.BlockList;
 import xyz.bzstudio.civilizationswars.client.gui.ScreenContainerManager;
 import xyz.bzstudio.civilizationswars.client.renderer.entity.EntityRendererManager;
+import xyz.bzstudio.civilizationswars.client.renderer.tileentity.TileEntityRendererManager;
 import xyz.bzstudio.civilizationswars.entity.EntityTypeList;
 import xyz.bzstudio.civilizationswars.inventory.container.ContainerTypeList;
 import xyz.bzstudio.civilizationswars.item.ItemList;
@@ -44,6 +45,7 @@ public class CivilizationsWars {
 
 	private void doClientStuff(final FMLClientSetupEvent event) {
 		event.enqueueWork(ScreenContainerManager::register);
+		event.enqueueWork(TileEntityRendererManager::register);
 		EntityRendererManager.register();
 	}
 

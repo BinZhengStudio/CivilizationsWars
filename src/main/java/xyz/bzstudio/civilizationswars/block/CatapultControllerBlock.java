@@ -34,11 +34,11 @@ public class CatapultControllerBlock extends ContainerBlock {
 	public static void fireLightParticle(BlockPos pos, int[] offset, ServerPlayerEntity player) {
 		World world = player.world;
 		TileEntity tileEntity = world.getTileEntity(pos);
+		int stackSize = getStackSize(world, pos);
 
-		if (world.isAreaLoaded(pos, 0) && tileEntity instanceof CatapultControllerTileEntity) {
+		if (world.isAreaLoaded(pos, 0) && tileEntity instanceof CatapultControllerTileEntity && stackSize > 0) {
 			((CatapultControllerTileEntity) tileEntity).getInventory().setInventorySlotContents(0, ItemStack.EMPTY);
 
-			int stackSize = getStackSize(world, pos);
 			int x_offset = offset[0];
 			int y_offset = offset[1];
 			int z_offset = offset[2];

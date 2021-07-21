@@ -31,8 +31,10 @@ public class TwoWayFoilRenderer extends EntityRenderer<TwoWayFoilEntity> {
 	public void render(TwoWayFoilEntity entityIn, float entityYaw, float partialTicks, MatrixStack matrixStackIn, IRenderTypeBuffer bufferIn, int packedLightIn) {
 		super.render(entityIn, entityYaw, partialTicks, matrixStackIn, bufferIn, packedLightIn);
 		matrixStackIn.push();
-		IVertexBuilder ivertexbuilder = bufferIn.getBuffer(RenderType.getEntityTranslucentCull(this.getEntityTexture(entityIn)));
-		this.model.render(matrixStackIn, ivertexbuilder, packedLightIn, OverlayTexture.NO_OVERLAY, 1.0F, 1.0F, 1.0F, 1.0F);
+		if (!entityIn.isImpacted()) {
+			IVertexBuilder ivertexbuilder = bufferIn.getBuffer(RenderType.getEntityTranslucentCull(this.getEntityTexture(entityIn)));
+			this.model.render(matrixStackIn, ivertexbuilder, packedLightIn, OverlayTexture.NO_OVERLAY, 1.0F, 1.0F, 1.0F, 1.0F);
+		}
 		matrixStackIn.pop();
 	}
 }

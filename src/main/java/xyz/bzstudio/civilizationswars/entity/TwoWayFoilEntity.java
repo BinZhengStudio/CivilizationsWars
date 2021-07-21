@@ -1,81 +1,134 @@
 package xyz.bzstudio.civilizationswars.entity;
 
+import net.minecraft.block.BlockState;
+import net.minecraft.block.Blocks;
+import net.minecraft.block.material.Material;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
-import net.minecraft.entity.projectile.DamagingProjectileEntity;
-import net.minecraft.network.IPacket;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.item.ItemEntity;
+import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
+import net.minecraft.network.PacketBuffer;
+import net.minecraft.util.math.AxisAlignedBB;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.RayTraceResult;
+import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.world.World;
-import net.minecraftforge.fml.network.NetworkHooks;
+import xyz.bzstudio.civilizationswars.util.DamageSourceList;
 
-public class TwoWayFoilEntity extends DamagingProjectileEntity {
-	protected TwoWayFoilEntity(EntityType<? extends DamagingProjectileEntity> entityType, World world) {
+import java.util.List;
+
+public class TwoWayFoilEntity extends AbstractTwoWayFoilEntity {
+	private boolean impacted = false;
+
+	protected TwoWayFoilEntity(EntityType<? extends AbstractTwoWayFoilEntity> entityType, World world) {
 		super(entityType, world);
 	}
 
 	public TwoWayFoilEntity(double x, double y, double z, double accelX, double accelY, double accelZ, World world) {
-		this(EntityTypeList.TWO_WAY_FOIL, world);
-		this.setLocationAndAngles(x, y, z, this.rotationYaw, this.rotationPitch);
-		this.recenterBoundingBox();
-		this.accelerationX = accelX * 0.1D;
-		this.accelerationY = accelY * 0.1D;
-		this.accelerationZ = accelZ * 0.1D;
+		super(EntityTypeList.TWO_WAY_FOIL, x, y, z, accelX, accelY, accelZ, world);
 	}
 
 	public TwoWayFoilEntity(Entity shooter, double accelX, double accelY, double accelZ, World world) {
-		this(shooter.getPosX(), shooter.getPosY(), shooter.getPosZ(), accelX, accelY, accelZ, world);
-		this.setShooter(shooter);
-		this.setRotation(shooter.rotationYaw, shooter.rotationPitch);
+		super(EntityTypeList.TWO_WAY_FOIL, shooter, accelX, accelY, accelZ, world);
 	}
 
-//	@Override
-//	public void tick() {
-//		this.baseTick();
-//	}
+	@Override
+	public void tick() {
+		if (this.impacted) {
+			this.destroyBlock();
+			this.killEntity();
+			if (this.getEntitiesInRadius().isEmpty()) {
+				this.entityDropItem(new ItemStack(Items.PAINTING));
+				this.remove();
+			}
+		} else {
+			super.tick();
+		}
+	}
 
 	@Override
 	protected void onImpact(RayTraceResult result) {
-		super.onImpact(result);
-		this.remove();
+		this.impacted = true;
 	}
 
-//	@Override
-//	public void baseTick() {
-//		Entity entity = this.getShooter();
-//		if (this.world.isRemote || (entity == null || !entity.removed) && this.world.isAreaLoaded(this.getPosition(), 0)) {
-//
-//			if (!this.world.isRemote) {
-//				this.setFlag(6, this.isGlowing());
-//			}
-//			super.baseTick();
-//
-//			RayTraceResult raytraceresult = ProjectileHelper.func_234618_a_(this, this::func_230298_a_);
-//			if (raytraceresult.getType() != RayTraceResult.Type.MISS && !net.minecraftforge.event.ForgeEventFactory.onProjectileImpact(this, raytraceresult)) {
-//				this.onImpact(raytraceresult);
-//			}
-//
-//			this.doBlockCollisions();
-//			Vector3d vector3d = this.getMotion();
-//			double d0 = this.getPosX() + vector3d.x;
-//			double d1 = this.getPosY() + vector3d.y;
-//			double d2 = this.getPosZ() + vector3d.z;
-//			ProjectileHelper.rotateTowardsMovement(this, 0.2F);
-//			float f = this.getMotionFactor();
-//
-//			this.setMotion(vector3d.add(this.accelerationX, this.accelerationY, this.accelerationZ).scale(f));
-//			this.setPosition(d0, d1, d2);
-//		} else {
-//			this.remove();
-//		}
-//	}
+	public boolean isImpacted() {
+		return this.impacted;
+	}
 
-//	@Override
-//	protected boolean func_230298_a_(Entity entityIn) {
-//		return !entityIn.noClip;
-//	}
+	private void destroyBlock() {
+		int minX = MathHelper.floor(this.getPosX() - RADIUS);
+		int maxX = MathHelper.ceil(this.getPosX() + RADIUS);
+		int minY = MathHelper.floor(this.getPosY() - RADIUS);
+		int maxY = MathHelper.ceil(this.getPosY() + RADIUS);
+		int minZ = MathHelper.floor(this.getPosZ() - RADIUS);
+		int maxZ = MathHelper.ceil(this.getPosZ() + RADIUS);
+
+		for (int x = minX; x < maxX; ++x) {
+			for (int y = minY; y < maxY; ++y) {
+				for (int z = minZ; z < maxZ; ++z) {
+					if (this.getDistanceSq(x, y, z) < RADIUS * RADIUS) {
+						BlockState state = this.world.getBlockState(new BlockPos(x, y, z));
+						if (!(state.getBlock() == Blocks.BEDROCK || state.getMaterial() == Material.AIR)) {
+							this.world.setBlockState(new BlockPos(x, y, z), Blocks.AIR.getDefaultState());
+							this.world.setTileEntity(new BlockPos(x, y, z), null);
+							AerialBlockEntity entity = new AerialBlockEntity(this.world, x + 0.5D, y, z + 0.5D, this.getPosX(), this.getPosY(), this.getPosZ(), state);
+							this.world.addEntity(entity);
+						}
+					}
+				}
+			}
+		}
+	}
+
+	private void killEntity() {
+		for (Entity entity : this.getEntitiesInRadius()) {
+			double distance = this.getDistance(entity);
+			if (entity instanceof AerialBlockEntity) {
+				if (distance < 1.0D) {
+					entity.remove();
+				}
+			} else {
+				if (distance < 2.0D) {
+					if (entity instanceof LivingEntity) {
+						LivingEntity livingEntity = (LivingEntity) entity;
+						livingEntity.attackEntityFrom(DamageSourceList.TWO_WAY_FOIL, livingEntity.getMaxHealth());
+					} else {
+						entity.remove();
+					}
+				} else if (distance < RADIUS) {
+					Vector3d vector3d = new Vector3d((this.getPosX() - entity.getPosX()) / distance, (this.getPosY() - entity.getPosY()) / distance, (this.getPosZ() - entity.getPosZ()) / distance).scale(0.09D * (1 - distance / AbstractTwoWayFoilEntity.RADIUS) + 0.01D);
+					entity.setMotion(entity.getMotion().add(vector3d));
+					entity.setPosition(entity.getPosX() + vector3d.x, entity.getPosY() + vector3d.y, entity.getPosZ() + vector3d.z);
+				}
+			}
+		}
+
+		AxisAlignedBB axisAlignedBB = new AxisAlignedBB(this.getPosX() - RADIUS, this.getPosY() - RADIUS, this.getPosZ() - RADIUS, this.getPosX() + RADIUS, this.getPosY() + RADIUS, this.getPosZ() + RADIUS);
+		List<ItemEntity> itemEntities = this.world.getEntitiesWithinAABB(ItemEntity.class, axisAlignedBB);
+		for (ItemEntity itemEntity : itemEntities) {
+			if (this.getDistanceSq(itemEntity) < RADIUS * RADIUS) {
+				itemEntity.remove();
+			}
+		}
+	}
+
+	private List<Entity> getEntitiesInRadius() {
+		AxisAlignedBB axisAlignedBB = new AxisAlignedBB(this.getPosX() - RADIUS, this.getPosY() - RADIUS, this.getPosZ() - RADIUS, this.getPosX() + RADIUS, this.getPosY() + RADIUS, this.getPosZ() + RADIUS);
+		return this.world.getEntitiesWithinAABBExcludingEntity(this, axisAlignedBB);
+	}
 
 	@Override
-	public IPacket<?> createSpawnPacket() {
-		return NetworkHooks.getEntitySpawningPacket(this);
+	public void readSpawnData(PacketBuffer buffer) {
+		super.readSpawnData(buffer);
+		this.impacted = buffer.readBoolean();
+	}
+
+	@Override
+	public void writeSpawnData(PacketBuffer buffer) {
+		super.writeSpawnData(buffer);
+		buffer.writeBoolean(this.impacted);
 	}
 }

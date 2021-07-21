@@ -12,9 +12,13 @@ import net.minecraft.entity.projectile.DamagingProjectileEntity;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.network.IPacket;
 import net.minecraft.particles.ParticleTypes;
+import net.minecraft.util.DamageSource;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.SoundEvents;
-import net.minecraft.util.math.*;
+import net.minecraft.util.math.AxisAlignedBB;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.math.vector.Vector2f;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.util.text.StringTextComponent;
@@ -115,6 +119,7 @@ public class LightParticleEntity extends DamagingProjectileEntity {
 					if (this.getDistanceSq(x, y, z) < radius * radius) {
 						if (!(this.world.getBlockState(new BlockPos(x, y, z)).getBlock() == (Blocks.BEDROCK))) {
 							this.world.setBlockState(new BlockPos(x, y, z), Blocks.AIR.getDefaultState());
+							this.world.setTileEntity(new BlockPos(x, y, z), null);
 						}
 					}
 				}
@@ -143,6 +148,11 @@ public class LightParticleEntity extends DamagingProjectileEntity {
 				itemEntity.remove();
 			}
 		}
+	}
+
+	@Override
+	public boolean attackEntityFrom(DamageSource source, float amount) {
+		return false;
 	}
 
 	@Override

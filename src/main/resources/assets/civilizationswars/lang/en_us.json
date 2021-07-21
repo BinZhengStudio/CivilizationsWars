@@ -16,8 +16,10 @@
   "block.civilizationswars.object_compressor": "Object Compressor",
 
   "death.attack.lightParticle": "%1$s killed by Light Particle",
+  "death.attack.twoWayFoil": "%1$s killed by Two-way Foil",
 
   "entity.civilizationswars.light_particle": "Light Particle",
+  "entity.civilizationswars.two_way_foil": "Two-way Foil",
 
   "gui.civilizationswars.catapult_controller": "Catapult Controller",
   "gui.civilizationswars.ceramics_maker": "Ceramics Maker",

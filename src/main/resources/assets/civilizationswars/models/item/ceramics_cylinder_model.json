@@ -1,0 +1,112 @@
+{
+	"parent": "minecraft:block/block",
+	"texture_size": [32, 32],
+	"textures": {
+		"particle": "civilizationswars:item/ceramics_cylinder_model"
+	},
+	"elements": [
+		{
+			"from": [5, 0, 0],
+			"to": [11, 16, 3],
+			"color": 2,
+			"faces": {
+				"north": {"uv": [0, 0, 3, 8], "texture": "#particle"},
+				"east": {"uv": [0, 0, 1.5, 8], "texture": "#particle"},
+				"south": {"uv": [0, 0, 3, 8], "texture": "#particle"},
+				"west": {"uv": [0, 0, 1.5, 8], "texture": "#particle"},
+				"up": {"uv": [0, 0, 3, 1.5], "texture": "#particle"},
+				"down": {"uv": [0, 0, 3, 1.5], "texture": "#particle"}
+			}
+		},
+		{
+			"from": [5, 0, 13],
+			"to": [11, 16, 16],
+			"color": 2,
+			"faces": {
+				"north": {"uv": [13, 8, 16, 16], "texture": "#particle"},
+				"east": {"uv": [14.5, 8, 16, 16], "texture": "#particle"},
+				"south": {"uv": [13, 8, 16, 16], "texture": "#particle"},
+				"west": {"uv": [14.5, 8, 16, 16], "texture": "#particle"},
+				"up": {"uv": [13, 14.5, 16, 16], "texture": "#particle"},
+				"down": {"uv": [13, 14.5, 16, 16], "texture": "#particle"}
+			}
+		},
+		{
+			"from": [0, 0, 5],
+			"to": [3, 16, 11],
+			"faces": {
+				"north": {"uv": [14.5, 0, 16, 8], "texture": "#particle"},
+				"east": {"uv": [13, 0, 16, 8], "texture": "#particle"},
+				"south": {"uv": [14.5, 0, 16, 8], "texture": "#particle"},
+				"west": {"uv": [13, 0, 16, 8], "texture": "#particle"},
+				"up": {"uv": [14.5, 0, 16, 3], "texture": "#particle"},
+				"down": {"uv": [14.5, 0, 16, 3], "texture": "#particle"}
+			}
+		},
+		{
+			"from": [13, 0, 5],
+			"to": [16, 16, 11],
+			"color": 1,
+			"faces": {
+				"north": {"uv": [0, 8, 1.5, 16], "texture": "#particle"},
+				"east": {"uv": [0, 8, 3, 16], "texture": "#particle"},
+				"south": {"uv": [0, 8, 1.5, 16], "texture": "#particle"},
+				"west": {"uv": [0, 8, 3, 16], "texture": "#particle"},
+				"up": {"uv": [0, 13, 1.5, 16], "texture": "#particle"},
+				"down": {"uv": [0, 13, 1.5, 16], "texture": "#particle"}
+			}
+		},
+		{
+			"from": [11, 0, 2],
+			"to": [14, 16, 5],
+			"color": 5,
+			"faces": {
+				"north": {"uv": [0, 0, 1.5, 8], "texture": "#particle"},
+				"east": {"uv": [0, 0, 1.5, 8], "texture": "#particle"},
+				"south": {"uv": [0, 0, 1.5, 8], "texture": "#particle"},
+				"west": {"uv": [0, 0, 1.5, 8], "texture": "#particle"},
+				"up": {"uv": [0, 0, 1.5, 1.5], "texture": "#particle"},
+				"down": {"uv": [0, 0, 1.5, 1.5], "texture": "#particle"}
+			}
+		},
+		{
+			"from": [11, 0, 11],
+			"to": [14, 16, 14],
+			"color": 5,
+			"faces": {
+				"north": {"uv": [0, 0, 1.5, 8], "texture": "#particle"},
+				"east": {"uv": [0, 0, 1.5, 8], "texture": "#particle"},
+				"south": {"uv": [0, 0, 1.5, 8], "texture": "#particle"},
+				"west": {"uv": [0, 0, 1.5, 8], "texture": "#particle"},
+				"up": {"uv": [0, 0, 1.5, 1.5], "texture": "#particle"},
+				"down": {"uv": [0, 0, 1.5, 1.5], "texture": "#particle"}
+			}
+		},
+		{
+			"from": [2, 0, 2],
+			"to": [5, 16, 5],
+			"color": 5,
+			"faces": {
+				"north": {"uv": [0, 0, 1.5, 8], "texture": "#particle"},
+				"east": {"uv": [0, 0, 1.5, 8], "texture": "#particle"},
+				"south": {"uv": [0, 0, 1.5, 8], "texture": "#particle"},
+				"west": {"uv": [0, 0, 1.5, 8], "texture": "#particle"},
+				"up": {"uv": [0, 0, 1.5, 1.5], "texture": "#particle"},
+				"down": {"uv": [0, 0, 1.5, 1.5], "texture": "#particle"}
+			}
+		},
+		{
+			"from": [2, 0, 11],
+			"to": [5, 16, 14],
+			"color": 5,
+			"faces": {
+				"north": {"uv": [0, 0, 1.5, 8], "texture": "#particle"},
+				"east": {"uv": [0, 0, 1.5, 8], "texture": "#particle"},
+				"south": {"uv": [0, 0, 1.5, 8], "texture": "#particle"},
+				"west": {"uv": [0, 0, 1.5, 8], "texture": "#particle"},
+				"up": {"uv": [0, 0, 1.5, 1.5], "texture": "#particle"},
+				"down": {"uv": [0, 0, 1.5, 1.5], "texture": "#particle"}
+			}
+		}
+	]
+}

@@ -1,0 +1,7 @@
+{
+  "variants": {
+    "": {
+      "model": "civilizationswars:block/object_compressor"
+    }
+  }
+}

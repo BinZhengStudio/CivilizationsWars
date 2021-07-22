@@ -117,9 +117,10 @@ public class LightParticleEntity extends DamagingProjectileEntity {
 			for (int y = minY; y < maxY; ++y) {
 				for (int z = minZ; z < maxZ; ++z) {
 					if (this.getDistanceSq(x, y, z) < radius * radius) {
-						if (!(this.world.getBlockState(new BlockPos(x, y, z)).getBlock() == (Blocks.BEDROCK))) {
-							this.world.setBlockState(new BlockPos(x, y, z), Blocks.AIR.getDefaultState());
-							this.world.setTileEntity(new BlockPos(x, y, z), null);
+						BlockPos pos = new BlockPos(x, y, z);
+						if (this.world.getBlockState(pos).getBlockHardness(this.world, pos) >= 0) {
+							this.world.setBlockState(pos, Blocks.AIR.getDefaultState());
+							this.world.setTileEntity(pos, null);
 						}
 					}
 				}
@@ -136,7 +137,7 @@ public class LightParticleEntity extends DamagingProjectileEntity {
 				if (entity instanceof LivingEntity) {
 					LivingEntity livingEntity = (LivingEntity) entity;
 					livingEntity.attackEntityFrom(DamageSourceList.LIGHT_PARTICLE, livingEntity.getMaxHealth());
-				} else {
+				} else if (!(entity instanceof LightParticleEntity)) {
 					entity.remove();
 				}
 			}

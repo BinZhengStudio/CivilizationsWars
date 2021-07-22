@@ -1,5 +1,6 @@
 package xyz.bzstudio.civilizationswars.entity;
 
+import com.google.common.collect.Lists;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.FlowingFluidBlock;
@@ -45,6 +46,9 @@ public class TwoWayFoilEntity extends AbstractTwoWayFoilEntity {
 			this.destroyBlock();
 			this.killEntity();
 			if (this.getEntitiesInRadius().isEmpty() || this.life <= 0) {
+				for (Entity entity : this.getEntitiesInRadius()) {
+					entity.setNoGravity(false);
+				}
 				this.remove();
 				this.entityDropItem(new ItemStack(Items.PAINTING));
 			}
@@ -134,7 +138,13 @@ public class TwoWayFoilEntity extends AbstractTwoWayFoilEntity {
 
 	private List<Entity> getEntitiesInRadius() {
 		AxisAlignedBB axisAlignedBB = new AxisAlignedBB(this.getPosX() - radius, this.getPosY() - radius, this.getPosZ() - radius, this.getPosX() + radius, this.getPosY() + radius, this.getPosZ() + radius);
-		return this.world.getEntitiesWithinAABBExcludingEntity(this, axisAlignedBB);
+		List<Entity> list = Lists.newArrayList();
+		for (Entity entity : this.world.getEntitiesWithinAABBExcludingEntity(this, axisAlignedBB)) {
+			if (this.getDistance(entity) < radius && !(entity instanceof AbstractTwoWayFoilEntity)) {
+				list.add(entity);
+			}
+		}
+		return list;
 	}
 
 	@Override

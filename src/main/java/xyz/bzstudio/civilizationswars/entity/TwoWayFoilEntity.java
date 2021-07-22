@@ -9,9 +9,9 @@ import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.fluid.FluidState;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
@@ -77,8 +77,7 @@ public class TwoWayFoilEntity extends AbstractTwoWayFoilEntity {
 					if (this.getDistanceSq(x, y, z) < RADIUS * RADIUS) {
 						BlockPos pos = new BlockPos(x, y, z);
 						BlockState state = this.world.getBlockState(pos);
-						FluidState fluid = this.world.getFluidState(pos);
-						if (!(state.getBlock() == Blocks.BEDROCK || state.getMaterial() == Material.AIR || state.getBlock() instanceof FlowingFluidBlock)) {
+						if (!(state.getBlockHardness(this.world, pos) < 0 || state.getMaterial() == Material.AIR || state.getBlock() instanceof FlowingFluidBlock)) {
 							this.world.setBlockState(pos, Blocks.AIR.getDefaultState());
 							this.world.setTileEntity(pos, null);
 							AerialBlockEntity entity = new AerialBlockEntity(this.world, x + 0.5D, y, z + 0.5D, this.getPosX(), this.getPosY(), this.getPosZ(), state);
@@ -136,6 +135,24 @@ public class TwoWayFoilEntity extends AbstractTwoWayFoilEntity {
 	private List<Entity> getEntitiesInRadius() {
 		AxisAlignedBB axisAlignedBB = new AxisAlignedBB(this.getPosX() - RADIUS, this.getPosY() - RADIUS, this.getPosZ() - RADIUS, this.getPosX() + RADIUS, this.getPosY() + RADIUS, this.getPosZ() + RADIUS);
 		return this.world.getEntitiesWithinAABBExcludingEntity(this, axisAlignedBB);
+	}
+
+	@Override
+	protected void readAdditional(CompoundNBT compound) {
+		super.readAdditional(compound);
+		if (compound.contains("life")) {
+			this.life = compound.getInt("life");
+		}
+		if (compound.contains("impacted")) {
+			this.impacted = compound.getBoolean("impacted");
+		}
+	}
+
+	@Override
+	protected void writeAdditional(CompoundNBT compound) {
+		super.writeAdditional(compound);
+		compound.putInt("life", this.life);
+		compound.putBoolean("impacted", this.impacted);
 	}
 
 	@Override

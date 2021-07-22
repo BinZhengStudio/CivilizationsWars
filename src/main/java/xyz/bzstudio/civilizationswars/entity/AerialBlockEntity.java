@@ -48,7 +48,7 @@ public class AerialBlockEntity extends Entity implements IEntityAdditionalSpawnD
 
 	@Override
 	public void tick() {
-		if (this.world.isAreaLoaded(this.getPosition(), 0) && this.life > 0) {
+		if (this.world.isAreaLoaded(this.getPosition(), 0) && this.life > 0 && this.distance > 1.0D) {
 			Vector3d vector3d = this.getMotion();
 			double x = this.getPosX() + vector3d.x;
 			double y = this.getPosY() + vector3d.y;
@@ -83,6 +83,9 @@ public class AerialBlockEntity extends Entity implements IEntityAdditionalSpawnD
 		if (compound.contains("AerialBlock")) {
 			this.aerialBlock = NBTUtil.readBlockState(compound.getCompound("AerialBlock"));
 		}
+		if (compound.contains("life")) {
+			this.life = compound.getInt("life");
+		}
 		if (compound.contains("destination", 9)) {
 			ListNBT listnbt = compound.getList("destination", 6);
 			if (listnbt.size() == 3) {
@@ -96,6 +99,7 @@ public class AerialBlockEntity extends Entity implements IEntityAdditionalSpawnD
 	@Override
 	protected void writeAdditional(CompoundNBT compound) {
 		compound.put("AerialBlock", NBTUtil.writeBlockState(this.aerialBlock));
+		compound.putInt("life", this.life);
 		compound.put("destination", this.newDoubleNBTList(this.destinationX, this.destinationY, this.destinationZ));
 	}
 

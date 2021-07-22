@@ -7,9 +7,6 @@ import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.nbt.ListNBT;
 import net.minecraft.network.IPacket;
 import net.minecraft.network.PacketBuffer;
-import net.minecraft.network.datasync.DataParameter;
-import net.minecraft.network.datasync.DataSerializers;
-import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.math.vector.Vector3d;
@@ -17,12 +14,13 @@ import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.fml.common.registry.IEntityAdditionalSpawnData;
 import net.minecraftforge.fml.network.NetworkHooks;
+import xyz.bzstudio.civilizationswars.common.Config;
 
 import javax.annotation.Nullable;
 import java.util.UUID;
 
 public abstract class AbstractTwoWayFoilEntity extends Entity implements IEntityAdditionalSpawnData {
-	public static final int RADIUS = 15;
+	public static int radius = 20;
 	public double accelerationX;
 	public double accelerationY;
 	public double accelerationZ;
@@ -41,6 +39,9 @@ public abstract class AbstractTwoWayFoilEntity extends Entity implements IEntity
 		this.accelerationX = accelX * 0.1D;
 		this.accelerationY = accelY * 0.1D;
 		this.accelerationZ = accelZ * 0.1D;
+		if (!world.isRemote) {
+			radius = Config.COMMON.twoWayFoilRadius.get();
+		}
 	}
 
 	public AbstractTwoWayFoilEntity(EntityType<? extends AbstractTwoWayFoilEntity> type, Entity shooter, double accelX, double accelY, double accelZ, World world) {
@@ -164,6 +165,7 @@ public abstract class AbstractTwoWayFoilEntity extends Entity implements IEntity
 
 	@Override
 	public void readSpawnData(PacketBuffer buffer) {
+		radius = buffer.readInt();
 		this.accelerationX = buffer.readDouble();
 		this.accelerationY = buffer.readDouble();
 		this.accelerationZ = buffer.readDouble();
@@ -171,6 +173,7 @@ public abstract class AbstractTwoWayFoilEntity extends Entity implements IEntity
 
 	@Override
 	public void writeSpawnData(PacketBuffer buffer) {
+		buffer.writeInt(radius);
 		buffer.writeDouble(this.accelerationX);
 		buffer.writeDouble(this.accelerationY);
 		buffer.writeDouble(this.accelerationZ);

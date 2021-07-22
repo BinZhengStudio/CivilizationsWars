@@ -15,6 +15,7 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.client.ForgeHooksClient;
 import net.minecraftforge.client.model.data.EmptyModelData;
+import xyz.bzstudio.civilizationswars.entity.AbstractTwoWayFoilEntity;
 import xyz.bzstudio.civilizationswars.entity.AerialBlockEntity;
 
 @OnlyIn(Dist.CLIENT)
@@ -32,10 +33,11 @@ public class AerialBlockRenderer extends EntityRenderer<AerialBlockEntity> {
 	public void render(AerialBlockEntity entityIn, float entityYaw, float partialTicks, MatrixStack matrixStackIn, IRenderTypeBuffer bufferIn, int packedLightIn) {
 		BlockState aerialBlock = entityIn.getAerialBlock();
 		if (entityIn.world.getBlockState(entityIn.getPosition()) != aerialBlock) {
+			float scale = (float) (entityIn.getDistance() / AbstractTwoWayFoilEntity.RADIUS);
 			BlockRendererDispatcher renderer = Minecraft.getInstance().getBlockRendererDispatcher();
 			matrixStackIn.push();
 			matrixStackIn.translate(-0.5D, 0.0D, -0.5D);
-			matrixStackIn.scale(1.0F, 1.0F, 1.0F);
+			matrixStackIn.scale(scale, scale, scale);
 			renderer.renderBlock(aerialBlock, matrixStackIn, bufferIn, packedLightIn, OverlayTexture.NO_OVERLAY, EmptyModelData.INSTANCE);
 			matrixStackIn.pop();
 		}

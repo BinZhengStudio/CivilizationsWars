@@ -2,13 +2,16 @@ package xyz.bzstudio.civilizationswars.entity;
 
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
+import net.minecraft.block.FlowingFluidBlock;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.item.ItemEntity;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
@@ -21,6 +24,7 @@ import xyz.bzstudio.civilizationswars.util.DamageSourceList;
 import java.util.List;
 
 public class TwoWayFoilEntity extends AbstractTwoWayFoilEntity {
+	private int life = 200;
 	private boolean impacted = false;
 
 	protected TwoWayFoilEntity(EntityType<? extends AbstractTwoWayFoilEntity> entityType, World world) {
@@ -40,10 +44,11 @@ public class TwoWayFoilEntity extends AbstractTwoWayFoilEntity {
 		if (this.impacted) {
 			this.destroyBlock();
 			this.killEntity();
-			if (this.getEntitiesInRadius().isEmpty()) {
-				this.entityDropItem(new ItemStack(Items.PAINTING));
+			if (this.getEntitiesInRadius().isEmpty() || this.life <= 0) {
 				this.remove();
+				this.entityDropItem(new ItemStack(Items.PAINTING));
 			}
+			this.life--;
 		} else {
 			super.tick();
 		}
@@ -70,10 +75,11 @@ public class TwoWayFoilEntity extends AbstractTwoWayFoilEntity {
 			for (int y = minY; y < maxY; ++y) {
 				for (int z = minZ; z < maxZ; ++z) {
 					if (this.getDistanceSq(x, y, z) < RADIUS * RADIUS) {
-						BlockState state = this.world.getBlockState(new BlockPos(x, y, z));
-						if (!(state.getBlock() == Blocks.BEDROCK || state.getMaterial() == Material.AIR)) {
-							this.world.setBlockState(new BlockPos(x, y, z), Blocks.AIR.getDefaultState());
-							this.world.setTileEntity(new BlockPos(x, y, z), null);
+						BlockPos pos = new BlockPos(x, y, z);
+						BlockState state = this.world.getBlockState(pos);
+						if (!(state.getBlockHardness(this.world, pos) < 0 || state.getMaterial() == Material.AIR || state.getBlock() instanceof FlowingFluidBlock)) {
+							this.world.setBlockState(pos, Blocks.AIR.getDefaultState());
+							this.world.setTileEntity(pos, null);
 							AerialBlockEntity entity = new AerialBlockEntity(this.world, x + 0.5D, y, z + 0.5D, this.getPosX(), this.getPosY(), this.getPosZ(), state);
 							this.world.addEntity(entity);
 						}
@@ -100,8 +106,19 @@ public class TwoWayFoilEntity extends AbstractTwoWayFoilEntity {
 					}
 				} else if (distance < RADIUS) {
 					Vector3d vector3d = new Vector3d((this.getPosX() - entity.getPosX()) / distance, (this.getPosY() - entity.getPosY()) / distance, (this.getPosZ() - entity.getPosZ()) / distance).scale(0.09D * (1 - distance / AbstractTwoWayFoilEntity.RADIUS) + 0.01D);
-					entity.setMotion(entity.getMotion().add(vector3d));
-					entity.setPosition(entity.getPosX() + vector3d.x, entity.getPosY() + vector3d.y, entity.getPosZ() + vector3d.z);
+					if (entity instanceof PlayerEntity) {
+						if (((PlayerEntity) entity).isCreative() || entity.isSpectator()) {
+							entity.setNoGravity(false);
+						} else {
+							entity.setNoGravity(true);
+							entity.setMotion(entity.getMotion().add(vector3d));
+							entity.setPosition(entity.getPosX() + vector3d.x, entity.getPosY() + vector3d.y, entity.getPosZ() + vector3d.z);
+						}
+					} else {
+						entity.setNoGravity(true);
+						entity.setMotion(entity.getMotion().add(vector3d));
+						entity.setPosition(entity.getPosX() + vector3d.x, entity.getPosY() + vector3d.y, entity.getPosZ() + vector3d.z);
+					}
 				}
 			}
 		}
@@ -121,14 +138,34 @@ public class TwoWayFoilEntity extends AbstractTwoWayFoilEntity {
 	}
 
 	@Override
+	protected void readAdditional(CompoundNBT compound) {
+		super.readAdditional(compound);
+		if (compound.contains("life")) {
+			this.life = compound.getInt("life");
+		}
+		if (compound.contains("impacted")) {
+			this.impacted = compound.getBoolean("impacted");
+		}
+	}
+
+	@Override
+	protected void writeAdditional(CompoundNBT compound) {
+		super.writeAdditional(compound);
+		compound.putInt("life", this.life);
+		compound.putBoolean("impacted", this.impacted);
+	}
+
+	@Override
 	public void readSpawnData(PacketBuffer buffer) {
 		super.readSpawnData(buffer);
+		this.life = buffer.readInt();
 		this.impacted = buffer.readBoolean();
 	}
 
 	@Override
 	public void writeSpawnData(PacketBuffer buffer) {
 		super.writeSpawnData(buffer);
+		buffer.writeInt(this.life);
 		buffer.writeBoolean(this.impacted);
 	}
 }

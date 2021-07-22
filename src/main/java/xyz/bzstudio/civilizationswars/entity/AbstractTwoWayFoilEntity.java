@@ -22,7 +22,7 @@ import javax.annotation.Nullable;
 import java.util.UUID;
 
 public abstract class AbstractTwoWayFoilEntity extends Entity implements IEntityAdditionalSpawnData {
-	public static final int RADIUS = 10; // TODO
+	public static final int RADIUS = 15;
 	public double accelerationX;
 	public double accelerationY;
 	public double accelerationZ;
@@ -49,6 +49,10 @@ public abstract class AbstractTwoWayFoilEntity extends Entity implements IEntity
 		this.setRotation(shooter.rotationYaw, shooter.rotationPitch);
 	}
 
+	@Override
+	protected void registerData() {
+	}
+
 	@Nullable
 	public Entity getShooter() {
 		if (this.owner != null && this.world instanceof ServerWorld) {
@@ -64,10 +68,6 @@ public abstract class AbstractTwoWayFoilEntity extends Entity implements IEntity
 			this.ownerId = entityIn.getEntityId();
 		}
 
-	}
-
-	@Override
-	protected void registerData() {
 	}
 
 	public void tick() {

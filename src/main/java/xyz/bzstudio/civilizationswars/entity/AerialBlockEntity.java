@@ -16,12 +16,11 @@ import net.minecraftforge.fml.common.registry.IEntityAdditionalSpawnData;
 import net.minecraftforge.fml.network.NetworkHooks;
 
 public class AerialBlockEntity extends Entity implements IEntityAdditionalSpawnData {
-	public double destinationX;
-	public double destinationY;
-	public double destinationZ;
-	public double accelerationX;
-	public double accelerationY;
-	public double accelerationZ;
+	private int life = 200;
+	private double destinationX;
+	private double destinationY;
+	private double destinationZ;
+	private double distance;
 	private BlockState aerialBlock;
 
 	public AerialBlockEntity(EntityType<?> entityTypeIn, World worldIn) {
@@ -34,6 +33,7 @@ public class AerialBlockEntity extends Entity implements IEntityAdditionalSpawnD
 		this.destinationX = desX;
 		this.destinationY = desY;
 		this.destinationZ = desZ;
+		this.distance = Math.sqrt(this.getDistanceSq(this.destinationX, this.destinationY, this.destinationZ));
 		this.aerialBlock = aerialBlockState;
 	}
 
@@ -48,7 +48,7 @@ public class AerialBlockEntity extends Entity implements IEntityAdditionalSpawnD
 
 	@Override
 	public void tick() {
-		if (this.world.isAreaLoaded(this.getPosition(), 0)) {
+		if (this.world.isAreaLoaded(this.getPosition(), 0) && this.life > 0) {
 			Vector3d vector3d = this.getMotion();
 			double x = this.getPosX() + vector3d.x;
 			double y = this.getPosY() + vector3d.y;
@@ -56,6 +56,7 @@ public class AerialBlockEntity extends Entity implements IEntityAdditionalSpawnD
 			ProjectileHelper.rotateTowardsMovement(this, 0.2F);
 			this.setMotion(vector3d.add(this.updateAccel()));
 			this.setPosition(x, y, z);
+			this.life--;
 		} else {
 			this.remove();
 		}
@@ -65,8 +66,12 @@ public class AerialBlockEntity extends Entity implements IEntityAdditionalSpawnD
 		return this.aerialBlock;
 	}
 
+	public double getDistance() {
+		return this.distance;
+	}
+
 	private Vector3d updateAccel() {
-		double distance = Math.sqrt(this.getDistanceSq(this.destinationX, this.destinationY, this.destinationZ));
+		this.distance = Math.sqrt(this.getDistanceSq(this.destinationX, this.destinationY, this.destinationZ));
 		double xDistance = this.destinationX - this.getPosX();
 		double yDistance = this.destinationY - this.getPosY();
 		double zDistance = this.destinationZ - this.getPosZ();
@@ -99,6 +104,8 @@ public class AerialBlockEntity extends Entity implements IEntityAdditionalSpawnD
 		this.destinationX = buffer.readDouble();
 		this.destinationY = buffer.readDouble();
 		this.destinationZ = buffer.readDouble();
+		this.distance = buffer.readDouble();
+		this.life = buffer.readInt();
 		this.aerialBlock = Block.getStateById(buffer.readInt());
 	}
 
@@ -107,6 +114,8 @@ public class AerialBlockEntity extends Entity implements IEntityAdditionalSpawnD
 		buffer.writeDouble(this.destinationX);
 		buffer.writeDouble(this.destinationY);
 		buffer.writeDouble(this.destinationZ);
+		buffer.writeDouble(this.distance);
+		buffer.writeInt(this.life);
 		buffer.writeInt(Block.getStateId(this.aerialBlock));
 	}
 

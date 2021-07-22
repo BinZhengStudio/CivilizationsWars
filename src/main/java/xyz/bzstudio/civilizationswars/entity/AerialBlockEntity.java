@@ -75,7 +75,7 @@ public class AerialBlockEntity extends Entity implements IEntityAdditionalSpawnD
 		double xDistance = this.destinationX - this.getPosX();
 		double yDistance = this.destinationY - this.getPosY();
 		double zDistance = this.destinationZ - this.getPosZ();
-		return new Vector3d(xDistance / distance, yDistance / distance, zDistance / distance).scale(0.09D * (1 - distance / AbstractTwoWayFoilEntity.RADIUS) + 0.01D);
+		return new Vector3d(xDistance / distance, yDistance / distance, zDistance / distance).scale(0.09D * (1 - distance / AbstractTwoWayFoilEntity.radius) + 0.01D);
 	}
 
 	@Override

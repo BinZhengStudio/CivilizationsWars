@@ -64,17 +64,17 @@ public class TwoWayFoilEntity extends AbstractTwoWayFoilEntity {
 	}
 
 	private void destroyBlock() {
-		int minX = MathHelper.floor(this.getPosX() - RADIUS);
-		int maxX = MathHelper.ceil(this.getPosX() + RADIUS);
-		int minY = MathHelper.floor(this.getPosY() - RADIUS);
-		int maxY = MathHelper.ceil(this.getPosY() + RADIUS);
-		int minZ = MathHelper.floor(this.getPosZ() - RADIUS);
-		int maxZ = MathHelper.ceil(this.getPosZ() + RADIUS);
+		int minX = MathHelper.floor(this.getPosX() - radius);
+		int maxX = MathHelper.ceil(this.getPosX() + radius);
+		int minY = MathHelper.floor(this.getPosY() - radius);
+		int maxY = MathHelper.ceil(this.getPosY() + radius);
+		int minZ = MathHelper.floor(this.getPosZ() - radius);
+		int maxZ = MathHelper.ceil(this.getPosZ() + radius);
 
 		for (int x = minX; x < maxX; ++x) {
 			for (int y = minY; y < maxY; ++y) {
 				for (int z = minZ; z < maxZ; ++z) {
-					if (this.getDistanceSq(x, y, z) < RADIUS * RADIUS) {
+					if (this.getDistanceSq(x, y, z) < radius * radius) {
 						BlockPos pos = new BlockPos(x, y, z);
 						BlockState state = this.world.getBlockState(pos);
 						if (!(state.getBlockHardness(this.world, pos) < 0 || state.getMaterial() == Material.AIR || state.getBlock() instanceof FlowingFluidBlock)) {
@@ -104,8 +104,8 @@ public class TwoWayFoilEntity extends AbstractTwoWayFoilEntity {
 					} else {
 						entity.remove();
 					}
-				} else if (distance < RADIUS) {
-					Vector3d vector3d = new Vector3d((this.getPosX() - entity.getPosX()) / distance, (this.getPosY() - entity.getPosY()) / distance, (this.getPosZ() - entity.getPosZ()) / distance).scale(0.09D * (1 - distance / AbstractTwoWayFoilEntity.RADIUS) + 0.01D);
+				} else if (distance < radius) {
+					Vector3d vector3d = new Vector3d((this.getPosX() - entity.getPosX()) / distance, (this.getPosY() - entity.getPosY()) / distance, (this.getPosZ() - entity.getPosZ()) / distance).scale(0.09D * (1 - distance / radius) + 0.01D);
 					if (entity instanceof PlayerEntity) {
 						if (((PlayerEntity) entity).isCreative() || entity.isSpectator()) {
 							entity.setNoGravity(false);
@@ -123,17 +123,17 @@ public class TwoWayFoilEntity extends AbstractTwoWayFoilEntity {
 			}
 		}
 
-		AxisAlignedBB axisAlignedBB = new AxisAlignedBB(this.getPosX() - RADIUS, this.getPosY() - RADIUS, this.getPosZ() - RADIUS, this.getPosX() + RADIUS, this.getPosY() + RADIUS, this.getPosZ() + RADIUS);
+		AxisAlignedBB axisAlignedBB = new AxisAlignedBB(this.getPosX() - radius, this.getPosY() - radius, this.getPosZ() - radius, this.getPosX() + radius, this.getPosY() + radius, this.getPosZ() + radius);
 		List<ItemEntity> itemEntities = this.world.getEntitiesWithinAABB(ItemEntity.class, axisAlignedBB);
 		for (ItemEntity itemEntity : itemEntities) {
-			if (this.getDistanceSq(itemEntity) < RADIUS * RADIUS) {
+			if (this.getDistanceSq(itemEntity) < radius * radius) {
 				itemEntity.remove();
 			}
 		}
 	}
 
 	private List<Entity> getEntitiesInRadius() {
-		AxisAlignedBB axisAlignedBB = new AxisAlignedBB(this.getPosX() - RADIUS, this.getPosY() - RADIUS, this.getPosZ() - RADIUS, this.getPosX() + RADIUS, this.getPosY() + RADIUS, this.getPosZ() + RADIUS);
+		AxisAlignedBB axisAlignedBB = new AxisAlignedBB(this.getPosX() - radius, this.getPosY() - radius, this.getPosZ() - radius, this.getPosX() + radius, this.getPosY() + radius, this.getPosZ() + radius);
 		return this.world.getEntitiesWithinAABBExcludingEntity(this, axisAlignedBB);
 	}
 

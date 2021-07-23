@@ -4,6 +4,7 @@ import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+import xyz.bzstudio.civilizationswars.block.BlockList;
 
 import javax.annotation.Nonnull;
 
@@ -13,7 +14,7 @@ public class ItemGroupList {
 		@Nonnull
 		@Override
 		public ItemStack createIcon() {
-			return new ItemStack(ItemList.COPPER_INGOT);
+			return new ItemStack(BlockList.ELECTROMAGNETIC_CATAPULT);
 		}
 	};
 }

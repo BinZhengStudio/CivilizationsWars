@@ -1,0 +1,35 @@
+{
+  "parent": "civilizationswars:civilizationswars/root",
+  "display": {
+    "icon": {
+      "item": "civilizationswars:object_compressor"
+    },
+    "title": {
+      "translate": "advancements.civilizationswars.object_compressor.title"
+    },
+    "description": {
+      "translate": "advancements.civilizationswars.object_compressor.description"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "object_compressor": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "civilizationswars:object_compressor"
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "object_compressor"
+    ]
+  ]
+}

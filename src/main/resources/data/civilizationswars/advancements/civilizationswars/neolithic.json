@@ -1,0 +1,35 @@
+{
+  "parent": "civilizationswars:civilizationswars/root",
+  "display": {
+    "icon": {
+      "item": "civilizationswars:ceramics_cylinder"
+    },
+    "title": {
+      "translate": "advancements.civilizationswars.neolithic.title"
+    },
+    "description": {
+      "translate": "advancements.civilizationswars.neolithic.description"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "ceramics_cylinder": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "civilizationswars:ceramics_cylinder"
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "ceramics_cylinder"
+    ]
+  ]
+}

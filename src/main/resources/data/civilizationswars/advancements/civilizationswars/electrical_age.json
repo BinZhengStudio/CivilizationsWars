@@ -1,0 +1,35 @@
+{
+  "parent": "civilizationswars:civilizationswars/neolithic",
+  "display": {
+    "icon": {
+      "item": "civilizationswars:coil"
+    },
+    "title": {
+      "translate": "advancements.civilizationswars.electrical_age.title"
+    },
+    "description": {
+      "translate": "advancements.civilizationswars.electrical_age.description"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "coil": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "civilizationswars:coil"
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "coil"
+    ]
+  ]
+}

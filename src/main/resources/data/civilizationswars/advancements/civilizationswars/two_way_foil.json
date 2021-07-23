@@ -1,0 +1,35 @@
+{
+  "parent": "civilizationswars:civilizationswars/object_compressor",
+  "display": {
+    "icon": {
+      "item": "civilizationswars:two_way_foil"
+    },
+    "title": {
+      "translate": "advancements.civilizationswars.two_way_foil.title"
+    },
+    "description": {
+      "translate": "advancements.civilizationswars.two_way_foil.description"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "two_way_foil": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "civilizationswars:two_way_foil"
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "two_way_foil"
+    ]
+  ]
+}

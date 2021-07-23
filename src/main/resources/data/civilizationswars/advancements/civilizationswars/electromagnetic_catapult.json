@@ -1,0 +1,46 @@
+{
+  "parent": "civilizationswars:civilizationswars/light_particle",
+  "display": {
+    "icon": {
+      "item": "civilizationswars:electromagnetic_catapult"
+    },
+    "title": {
+      "translate": "advancements.civilizationswars.electromagnetic_catapult.title"
+    },
+    "description": {
+      "translate": "advancements.civilizationswars.electromagnetic_catapult.description"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "electromagnetic_catapult": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "civilizationswars:electromagnetic_catapult"
+          }
+        ]
+      }
+    },
+    "catapult_controller": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "civilizationswars:electromagnetic_catapult"
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "electromagnetic_catapult",
+      "catapult_controller"
+    ]
+  ]
+}

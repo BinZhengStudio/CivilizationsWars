@@ -1,6 +1,18 @@
 {
   "advancements.civilizationswars.root.title": "Thanks for using the preview version of ThreebodyIndustry Mod",
   "advancements.civilizationswars.root.description": "Install the preview version of ThreebodyIndustry Mod and launch Minecraft",
+  "advancements.civilizationswars.electrical_age.title": "电气时代",
+  "advancements.civilizationswars.electrical_age.description": "导线用来传输，线圈用来生磁",
+  "advancements.civilizationswars.electromagnetic_catapult.title": "二营长！你他娘的意大利炮呢？给我拉上来！",
+  "advancements.civilizationswars.electromagnetic_catapult.description": "用大炮发射光粒",
+  "advancements.civilizationswars.light_particle.title": "这是一个诅咒",
+  "advancements.civilizationswars.light_particle.description": "光速即是一切",
+  "advancements.civilizationswars.neolithic.title": "新石器时代",
+  "advancements.civilizationswars.neolithic.description": "造出陶瓷工具",
+  "advancements.civilizationswars.object_compressor.title": "世界.zip",
+  "advancements.civilizationswars.object_compressor.description": "该压缩些什么了",
+  "advancements.civilizationswars.two_way_foil.title": "想进二次元吗？",
+  "advancements.civilizationswars.two_way_foil.description": "“我需要一块二向箔”",
 
   "cmd.civilizationswars.light_particle.text1": "黑暗森林打击警告",
   "cmd.civilizationswars.light_particle.text2": "玩家",

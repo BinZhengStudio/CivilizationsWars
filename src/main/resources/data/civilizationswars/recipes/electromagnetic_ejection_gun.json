@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "###",
+    "XXX",
+    "  $"
+  ],
+  "key": {
+    "#": {
+      "item": "civilizationswars:coil"
+    },
+    "X": {
+      "item": "civilizationswars:copper_ingot"
+    },
+    "$": {
+      "item": "minecraft:iron_ingot"
+    }
+  },
+  "result": {
+    "item": "civilizationswars:electromagnetic_ejection_gun"
+  }
+}

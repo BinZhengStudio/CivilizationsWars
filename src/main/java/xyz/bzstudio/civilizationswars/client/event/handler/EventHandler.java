@@ -15,7 +15,7 @@ public class EventHandler {
 	public static void renderGameOverlayEvent(final RenderGameOverlayEvent event) {
 		if (event.getType() == RenderGameOverlayEvent.ElementType.ALL && Minecraft.getInstance().player != null) {
 			if (Minecraft.getInstance().player.getHeldItem(Hand.MAIN_HAND).getItem() == ItemList.ELECTROMAGNETIC_EJECTION_GUN) {
-				new ElectricGunGui(event.getMatrixStack(), Minecraft.getInstance().player.getHeldItem(Hand.MAIN_HAND)).render();
+				new ElectricGunGui(event.getMatrixStack(), Minecraft.getInstance().player.getHeldItem(Hand.MAIN_HAND), Minecraft.getInstance().player).render();
 			}
 		}
 	}

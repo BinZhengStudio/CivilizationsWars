@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "X#X",
+    "$#$",
+    "&&&"
+  ],
+  "key": {
+    "X": {
+      "item": "civilizationswars:copper_ingot"
+    },
+    "#": {
+      "item": "civilizationswars:coil"
+    },
+    "$": {
+      "item": "minecraft:redstone"
+    },
+    "&": {
+      "item": "minecraft:iron_ingot"
+    }
+  },
+  "result": {
+    "item": "civilizationswars:catapult_controller"
+  }
+}

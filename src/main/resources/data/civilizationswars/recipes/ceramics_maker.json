@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "###",
+    "X&$"
+  ],
+  "key": {
+    "#": {
+      "item": "minecraft:smooth_stone_slab"
+    },
+    "X": {
+      "item": "minecraft:cobblestone"
+    },
+    "&": {
+      "item": "minecraft:redstone"
+    },
+    "$": {
+      "item": "minecraft:iron_ingot"
+    }
+  },
+  "result": {
+    "item": "civilizationswars:ceramics_maker"
+  }
+}

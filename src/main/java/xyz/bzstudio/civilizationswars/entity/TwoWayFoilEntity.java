@@ -101,27 +101,29 @@ public class TwoWayFoilEntity extends AbstractTwoWayFoilEntity {
 					entity.remove();
 				}
 			} else {
-				if (distance < 2.0D) {
-					if (entity instanceof LivingEntity) {
-						LivingEntity livingEntity = (LivingEntity) entity;
-						livingEntity.attackEntityFrom(DamageSourceList.TWO_WAY_FOIL, livingEntity.getMaxHealth());
-					} else {
-						entity.remove();
-					}
-				} else if (distance < radius) {
-					Vector3d vector3d = new Vector3d((this.getPosX() - entity.getPosX()) / distance, (this.getPosY() - entity.getPosY()) / distance, (this.getPosZ() - entity.getPosZ()) / distance).scale(0.09D * (1 - distance / radius) + 0.01D);
-					if (entity instanceof PlayerEntity) {
-						if (((PlayerEntity) entity).isCreative() || entity.isSpectator()) {
-							entity.setNoGravity(false);
+				if (!entity.isInvulnerableTo(DamageSourceList.TWO_WAY_FOIL)) {
+					if (distance < 2.0D) {
+						if (entity instanceof LivingEntity) {
+							LivingEntity livingEntity = (LivingEntity) entity;
+							livingEntity.attackEntityFrom(DamageSourceList.TWO_WAY_FOIL, livingEntity.getMaxHealth());
+						} else {
+							entity.remove();
+						}
+					} else if (distance < radius) {
+						Vector3d vector3d = new Vector3d((this.getPosX() - entity.getPosX()) / distance, (this.getPosY() - entity.getPosY()) / distance, (this.getPosZ() - entity.getPosZ()) / distance).scale(0.09D * (1 - distance / radius) + 0.01D);
+						if (entity instanceof PlayerEntity) {
+							if (((PlayerEntity) entity).isCreative() || entity.isSpectator()) {
+								entity.setNoGravity(false);
+							} else {
+								entity.setNoGravity(true);
+								entity.setMotion(entity.getMotion().add(vector3d));
+								entity.setPosition(entity.getPosX() + vector3d.x, entity.getPosY() + vector3d.y, entity.getPosZ() + vector3d.z);
+							}
 						} else {
 							entity.setNoGravity(true);
 							entity.setMotion(entity.getMotion().add(vector3d));
 							entity.setPosition(entity.getPosX() + vector3d.x, entity.getPosY() + vector3d.y, entity.getPosZ() + vector3d.z);
 						}
-					} else {
-						entity.setNoGravity(true);
-						entity.setMotion(entity.getMotion().add(vector3d));
-						entity.setPosition(entity.getPosX() + vector3d.x, entity.getPosY() + vector3d.y, entity.getPosZ() + vector3d.z);
 					}
 				}
 			}

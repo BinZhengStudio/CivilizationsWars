@@ -133,12 +133,14 @@ public class LightParticleEntity extends DamagingProjectileEntity {
 		AxisAlignedBB axisAlignedBB = new AxisAlignedBB(this.getPosX() - killRadius, this.getPosY() - killRadius, this.getPosZ() - killRadius, this.getPosX() + killRadius, this.getPosY() + killRadius, this.getPosZ() + killRadius);
 		List<Entity> entities = this.world.getEntitiesWithinAABBExcludingEntity(this, axisAlignedBB);
 		for (Entity entity : entities) {
-			if (this.getDistanceSq(entity) < killRadius * killRadius) {
-				if (entity instanceof LivingEntity) {
-					LivingEntity livingEntity = (LivingEntity) entity;
-					livingEntity.attackEntityFrom(DamageSourceList.LIGHT_PARTICLE, livingEntity.getMaxHealth());
-				} else if (!(entity instanceof LightParticleEntity)) {
-					entity.remove();
+			if (!entity.isInvulnerableTo(DamageSourceList.LIGHT_PARTICLE)) {
+				if (this.getDistanceSq(entity) < killRadius * killRadius) {
+					if (entity instanceof LivingEntity) {
+						LivingEntity livingEntity = (LivingEntity) entity;
+						livingEntity.attackEntityFrom(DamageSourceList.LIGHT_PARTICLE, livingEntity.getMaxHealth());
+					} else if (!(entity instanceof LightParticleEntity)) {
+						entity.remove();
+					}
 				}
 			}
 		}

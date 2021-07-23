@@ -8,9 +8,11 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
+import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.world.Explosion;
 import net.minecraft.world.World;
+import xyz.bzstudio.civilizationswars.util.DamageSourceList;
 
 public class ElectromagneticEjectionGunItem extends Item {
 	private int charge;
@@ -28,11 +30,9 @@ public class ElectromagneticEjectionGunItem extends Item {
 			if (playerIn.isCrouching()) {
 				if (playerIn.isCreative()) {
 					this.createExplosion(worldIn, playerIn, this.getCharge(heldItemMainHand));
-//					worldIn.playSound(); // TODO 以后会搞音效的
 				} else {
 					if (heldItemOffHand.getItem() == ItemList.LIGHT_PARTICLE) {
 						this.createExplosion(worldIn, playerIn, this.getCharge(heldItemMainHand));
-//						worldIn.playSound(); // TODO 以后会搞音效的
 						heldItemOffHand.shrink(1);
 					}
 				}
@@ -85,9 +85,26 @@ public class ElectromagneticEjectionGunItem extends Item {
 		Vector3d vector3d = player.getLookVec();
 		for (int i = 0; i < 10 * ((float) charge / this.getTotalCharge()); i++) {
 			if (i == 0) {
-				world.createExplosion((Entity) null, player.getPosX() + (vector3d.x * 7), player.getPosY() + (vector3d.y * 7), player.getPosZ() + (vector3d.z * 7), 3.0F * ((float) charge / this.getTotalCharge()), Explosion.Mode.NONE);
+				world.createExplosion((Entity) null, player.getPosX() + (vector3d.x * 7), player.getPosY() + (vector3d.y * 7), player.getPosZ() + (vector3d.z * 7), 3.0F * ((float) charge / this.getTotalCharge()), Explosion.Mode.DESTROY);
 			} else {
-				world.createExplosion((Entity) null, player.getPosX() + (vector3d.x * 5 * (i + 1)), player.getPosY() + (vector3d.y * 5 * (i + 1)), player.getPosZ() + (vector3d.z * 5 * (i + 1)), 3.0F * ((float) charge / this.getTotalCharge()), Explosion.Mode.NONE);
+				world.createExplosion((Entity) null, player.getPosX() + (vector3d.x * 5 * (i + 1)), player.getPosY() + (vector3d.y * 5 * (i + 1)), player.getPosZ() + (vector3d.z * 5 * (i + 1)), 3.0F * ((float) charge / this.getTotalCharge()), Explosion.Mode.DESTROY);
+			}
+		}
+
+		for (int i = 0; i < 50 * ((float) charge / this.getTotalCharge()); i++) {
+			double x = player.getPosX() + vector3d.x * i;
+			double y = player.getPosY() + vector3d.y * i;
+			double z = player.getPosZ() + vector3d.z * i;
+			AxisAlignedBB axisAlignedBB = new AxisAlignedBB(x - 1, y - 1, z - 1, x + 1, y + 1, z + 1);
+			for (Entity entity : world.getEntitiesWithinAABBExcludingEntity(player, axisAlignedBB)) {
+				if (!entity.isInvulnerableTo(DamageSourceList.LIGHT_PARTICLE)) {
+					if (entity instanceof LivingEntity) {
+						LivingEntity livingEntity = (LivingEntity) entity;
+						livingEntity.attackEntityFrom(DamageSourceList.LIGHT_PARTICLE, 30 * ((float) charge / this.getTotalCharge()));
+					} else {
+						entity.remove();
+					}
+				}
 			}
 		}
 	}

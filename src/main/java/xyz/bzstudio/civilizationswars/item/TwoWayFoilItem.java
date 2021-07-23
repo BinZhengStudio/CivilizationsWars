@@ -1,5 +1,6 @@
 package xyz.bzstudio.civilizationswars.item;
 
+import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -9,8 +10,14 @@ import net.minecraft.util.Hand;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.SoundEvents;
 import net.minecraft.util.math.vector.Vector3d;
+import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.text.TextFormatting;
+import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
 import xyz.bzstudio.civilizationswars.entity.TwoWayFoilEntity;
+
+import javax.annotation.Nullable;
+import java.util.List;
 
 public class TwoWayFoilItem extends Item {
 	public TwoWayFoilItem() {
@@ -33,5 +40,12 @@ public class TwoWayFoilItem extends Item {
 		}
 
 		return ActionResult.func_233538_a_(itemstack, worldIn.isRemote());
+	}
+
+	@Override
+	public void addInformation(ItemStack stack, @Nullable World worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn) {
+		tooltip.add(new TranslationTextComponent("itemTooltip.civilizationswars.two_way_foil.1").mergeStyle(TextFormatting.LIGHT_PURPLE));
+		tooltip.add(new TranslationTextComponent("itemTooltip.civilizationswars.two_way_foil.2").mergeStyle(TextFormatting.GOLD));
+		tooltip.add(new TranslationTextComponent("itemTooltip.civilizationswars.two_way_foil.3").mergeStyle(TextFormatting.RED));
 	}
 }

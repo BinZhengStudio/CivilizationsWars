@@ -1,5 +1,6 @@
 package xyz.bzstudio.civilizationswars.item;
 
+import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -10,9 +11,15 @@ import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.vector.Vector3d;
+import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.text.TextFormatting;
+import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.Explosion;
 import net.minecraft.world.World;
 import xyz.bzstudio.civilizationswars.util.DamageSourceList;
+
+import javax.annotation.Nullable;
+import java.util.List;
 
 public class ElectromagneticEjectionGunItem extends Item {
 	private int charge;
@@ -107,5 +114,12 @@ public class ElectromagneticEjectionGunItem extends Item {
 				}
 			}
 		}
+	}
+
+	@Override
+	public void addInformation(ItemStack stack, @Nullable World worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn) {
+		tooltip.add(new TranslationTextComponent("itemTooltip.civilizationswars.electromagnetic_ejection_gun.1").mergeStyle(TextFormatting.LIGHT_PURPLE));
+		tooltip.add(new TranslationTextComponent("itemTooltip.civilizationswars.electromagnetic_ejection_gun.2").mergeStyle(TextFormatting.YELLOW));
+		tooltip.add(new TranslationTextComponent("itemTooltip.civilizationswars.electromagnetic_ejection_gun.3").mergeStyle(TextFormatting.RED));
 	}
 }

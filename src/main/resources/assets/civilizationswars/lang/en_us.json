@@ -50,6 +50,19 @@
 
   "itemGroup.civilizationsWars": "ThreebodyIndustry (Preview)",
 
+  "itemTooltip.civilizationswars.catapult_controller.1": "需要与光粒弹射器配套使用",
+  "itemTooltip.civilizationswars.catapult_controller.2": "右键打开GUI，可调整光粒的偏转角度",
+  "itemTooltip.civilizationswars.catapult_controller.3": "需要发射口连接光粒弹射器才能使用",
+  "itemTooltip.civilizationswars.catapult_controller.4": "弹射器连接越多，光粒攻击力越强，上限为25个",
+  "itemTooltip.civilizationswars.catapult_controller.5": "只有连接25个弹射器并朝上发射，且偏转角度均为0°时，才能摧毁太阳",
+  "itemTooltip.civilizationswars.electromagnetic_ejection_gun.1": "用于发射光粒",
+  "itemTooltip.civilizationswars.electromagnetic_ejection_gun.2": "放在主手，右键充能，按住shift+右键发射光粒",
+  "itemTooltip.civilizationswars.electromagnetic_ejection_gun.3": "在生存模式下需要玩家副手持有光粒",
+  "itemTooltip.civilizationswars.light_particle": "人造的劣质光粒，威力虽然弱了亿点，但配合光粒弹射器使用依然可以摧毁太阳",
+  "itemTooltip.civilizationswars.two_way_foil.1": "人造劣质二向箔",
+  "itemTooltip.civilizationswars.two_way_foil.2": "范围小，在吸干净方块和生物后即消失，且对流体无效",
+  "itemTooltip.civilizationswars.two_way_foil.3": "（其实是为了防止游戏崩溃）",
+
   "screen.catapult_controller.fire": "Fire",
   "screen.catapult_controller.number_incorrect": "Number Incorrect",
   "screen.catapult_controller.x_offset": "X Offset: ",

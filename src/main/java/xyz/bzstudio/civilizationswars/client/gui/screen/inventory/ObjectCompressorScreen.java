@@ -23,7 +23,7 @@ public class ObjectCompressorScreen extends ContainerScreen<ObjectCompressorCont
 		super.render(matrixStack, mouseX, mouseY, partialTicks);
 		this.renderHoveredTooltip(matrixStack, mouseX, mouseY);
 		if (mouseX < this.guiLeft + 55 && mouseX > this.guiLeft + 26 && mouseY < this.guiTop + 78 && mouseY > this.guiTop + 8) {
-			this.renderTooltip(matrixStack, new TranslationTextComponent("screen.tooltip.threebody_energy"), mouseX, mouseY); // TODO 未来会添加自己的能量系统
+			this.renderTooltip(matrixStack, new TranslationTextComponent("screen.tooltip.threebody_energy"), mouseX, mouseY);
 		}
 	}
 

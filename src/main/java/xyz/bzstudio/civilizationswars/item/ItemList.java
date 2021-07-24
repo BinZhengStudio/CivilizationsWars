@@ -20,6 +20,7 @@ public class ItemList {
 	public static final Item ELECTROMAGNETIC_EJECTION_GUN = register("electromagnetic_ejection_gun", new ElectromagneticEjectionGunItem());
 	public static final Item TWO_WAY_FOIL = register("two_way_foil", new TwoWayFoilItem());
 	public static final Item TWO_WAY_FOIL_RAW_MATERIAL = register("two_way_foil_raw_material", new Item(new Item.Properties().group(ItemGroupList.TAB_CIVILIZATIONS_WARS)));
+	public static final Item BZ_LOGO = register("bz_logo",new BzLogoItem(new Item.Properties().group(ItemGroupList.TAB_CIVILIZATIONS_WARS)));
 
 	public static final Item COPPER_ORE = register("copper_ore", new BlockItem(BlockList.COPPER_ORE, new Item.Properties().group(ItemGroupList.TAB_CIVILIZATIONS_WARS)));
 	public static final Item COPPER_BLOCK = register("copper_block", new BlockItem(BlockList.COPPER_BLOCK, new Item.Properties().group(ItemGroupList.TAB_CIVILIZATIONS_WARS)));

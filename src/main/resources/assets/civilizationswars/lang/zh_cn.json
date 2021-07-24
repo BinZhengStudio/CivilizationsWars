@@ -1,17 +1,30 @@
 {
   "advancements.civilizationswars.root.title": "感谢体验《三体工业》预览版",
+
   "advancements.civilizationswars.root.description": "安装《三体工业》预览版并启动Minecraft",
+
   "advancements.civilizationswars.electrical_age.title": "电气时代",
+
   "advancements.civilizationswars.electrical_age.description": "导线用来传输，线圈用来生磁",
+
   "advancements.civilizationswars.electromagnetic_catapult.title": "二营长！你他娘的意大利炮呢？给我拉上来！",
+
   "advancements.civilizationswars.electromagnetic_catapult.description": "用大炮发射光粒",
+
   "advancements.civilizationswars.light_particle.title": "这是一个诅咒",
+
   "advancements.civilizationswars.light_particle.description": "光速即是一切",
+
   "advancements.civilizationswars.neolithic.title": "新石器时代",
+
   "advancements.civilizationswars.neolithic.description": "造出陶瓷工具",
+
   "advancements.civilizationswars.object_compressor.title": "世界.zip",
+
   "advancements.civilizationswars.object_compressor.description": "该压缩些什么了",
+
   "advancements.civilizationswars.two_way_foil.title": "想进二次元吗？",
+
   "advancements.civilizationswars.two_way_foil.description": "“我需要一块二向箔”",
 
   "cmd.civilizationswars.light_particle.text1": "黑暗森林打击警告",
@@ -26,28 +39,24 @@
   "block.civilizationswars.copper_block": "铜块",
   "block.civilizationswars.electromagnetic_catapult": "光粒弹射器",
   "block.civilizationswars.object_compressor": "物质压缩机",
-
   "death.attack.lightParticle": "%1$s受到了黑暗森林打击",
   "death.attack.twoWayFoil": "%1$s进入了二次元",
-
   "entity.civilizationswars.light_particle": "光粒",
   "entity.civilizationswars.two_way_foil": "二向箔",
-
   "gui.civilizationswars.catapult_controller": "弹射控制器",
   "gui.civilizationswars.ceramics_maker": "陶模捏制机",
   "gui.civilizationswars.object_compressor": "物质压缩机",
-
-  "item.civilizationswars.coil": "线圈" ,
-  "item.civilizationswars.copper_ingot": "铜锭" ,
-  "item.civilizationswars.copper_nugget": "铜粒" ,
-  "item.civilizationswars.copper_wire": "铜导线" ,
+  "item.civilizationswars.coil": "线圈",
+  "item.civilizationswars.copper_ingot": "铜锭",
+  "item.civilizationswars.copper_nugget": "铜粒",
+  "item.civilizationswars.copper_wire": "铜导线",
   "item.civilizationswars.ceramics_cylinder": "陶瓷筒",
   "item.civilizationswars.ceramics_cylinder_model": "陶瓷筒 陶模",
   "item.civilizationswars.electromagnetic_ejection_gun": "光粒弹射枪",
   "item.civilizationswars.light_particle": "光粒",
   "item.civilizationswars.two_way_foil": "二向箔",
   "item.civilizationswars.two_way_foil_raw_material": "二向箔 原料",
-
+  "item.civilizationswars.bz_logo": "斌政工作室",
   "itemGroup.civilizationsWars": "三体工业（预览版）",
 
   "itemTooltip.civilizationswars.catapult_controller.1": "需要与光粒弹射器配套使用",
@@ -55,10 +64,13 @@
   "itemTooltip.civilizationswars.catapult_controller.3": "需要发射口连接光粒弹射器才能使用",
   "itemTooltip.civilizationswars.catapult_controller.4": "弹射器连接越多，光粒攻击力越强，上限为25个",
   "itemTooltip.civilizationswars.catapult_controller.5": "只有连接25个弹射器并朝上发射，且偏转角度均为0°时，才能摧毁太阳",
+
   "itemTooltip.civilizationswars.electromagnetic_ejection_gun.1": "用于便捷地发射光粒",
   "itemTooltip.civilizationswars.electromagnetic_ejection_gun.2": "放在主手，右键充能，按住shift+右键发射光粒",
   "itemTooltip.civilizationswars.electromagnetic_ejection_gun.3": "在生存模式下需要玩家副手持有光粒",
+
   "itemTooltip.civilizationswars.light_particle": "人造的劣质光粒，威力虽然弱了亿点，但配合光粒弹射器使用依然可以摧毁太阳",
+
   "itemTooltip.civilizationswars.two_way_foil.1": "人造劣质二向箔",
   "itemTooltip.civilizationswars.two_way_foil.2": "范围小，在吸干净方块和生物后即消失，且对流体无效",
   "itemTooltip.civilizationswars.two_way_foil.3": "（其实是为了防止游戏崩溃）",
@@ -68,6 +80,13 @@
   "screen.catapult_controller.x_offset": "X轴偏转：",
   "screen.catapult_controller.y_offset": "Y轴偏转：",
   "screen.catapult_controller.z_offset": "Z轴偏转：",
+
   "screen.ceramics_maker.text": "选择你想要捏制的陶模",
-  "screen.tooltip.threebody_energy": "Threebody Energy: (预览版为无限)"
+
+  "screen.tooltip.threebody_energy": "Threebody Energy: (预览版为无限)",
+
+  "itemTooltip.civilizationswars.bz_logo.1": "斌政工作室2021一周年巨献（划掉）",
+  "itemTooltip.civilizationswars.bz_logo.2": "三体工业——文明之间的战争（预览版）",
+  "itemTooltip.civilizationswars.bz_logo.3": "因为时间太紧，只能搞一个预览版",
+  "itemTooltip.civilizationswars.bz_logo.4": "希望大家可以支持我们，未来将带来完整的模组"
 }

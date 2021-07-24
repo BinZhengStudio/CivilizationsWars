@@ -127,5 +127,4 @@ public class AerialBlockEntity extends Entity implements IEntityAdditionalSpawnD
 	public IPacket<?> createSpawnPacket() {
 		return NetworkHooks.getEntitySpawningPacket(this);
 	}
-
 }

@@ -106,8 +106,7 @@ public class ElectromagneticEjectionGunItem extends Item {
 			for (Entity entity : world.getEntitiesWithinAABBExcludingEntity(player, axisAlignedBB)) {
 				if (!entity.isInvulnerableTo(DamageSourceList.LIGHT_PARTICLE)) {
 					if (entity instanceof LivingEntity) {
-						LivingEntity livingEntity = (LivingEntity) entity;
-						livingEntity.attackEntityFrom(DamageSourceList.LIGHT_PARTICLE, 30 * ((float) charge / this.getTotalCharge()));
+						((LivingEntity) entity).attackEntityFrom(DamageSourceList.LIGHT_PARTICLE, 30 * ((float) charge / this.getTotalCharge()));
 					} else {
 						entity.remove();
 					}

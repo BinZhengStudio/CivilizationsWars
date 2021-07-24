@@ -43,8 +43,10 @@ public class TwoWayFoilEntity extends AbstractTwoWayFoilEntity {
 	@Override
 	public void tick() {
 		if (this.impacted) {
-			this.destroyBlock();
-			this.killEntity();
+			if (!this.world.isRemote) {
+				this.destroyBlock();
+				this.killEntity();
+			}
 			if (this.getEntitiesInRadius().isEmpty() || this.life <= 0) {
 				for (Entity entity : this.getEntitiesInRadius()) {
 					entity.setNoGravity(false);

@@ -27,6 +27,7 @@ public class ItemList {
 	public static final Item CATAPULT_CONTROLLER = register("catapult_controller", new CatapultControllerItem());
 	public static final Item ELECTROMAGNETIC_CATAPULT = register("electromagnetic_catapult", new BlockItem(BlockList.ELECTROMAGNETIC_CATAPULT, new Item.Properties().group(ItemGroupList.TAB_CIVILIZATIONS_WARS)));
 	public static final Item OBJECT_COMPRESSOR = register("object_compressor", new BlockItem(BlockList.OBJECT_COMPRESSOR, new Item.Properties().group(ItemGroupList.TAB_CIVILIZATIONS_WARS)));
+	public static final Item THREEBODY_MODEL = register("threebody_model", new BlockItem(BlockList.THREEBODY_MODEL, new Item.Properties()));
 
 	private static Item register(String name, Item item) {
 		ITEMS.register(name, () -> item);

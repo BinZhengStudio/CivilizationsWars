@@ -90,7 +90,7 @@ public class ElectromagneticEjectionGunItem extends Item {
 
 	private void createExplosion(World world, PlayerEntity player, int charge) {
 		Vector3d vector3d = player.getLookVec();
-		for (int i = 0; i < 10 * ((float) charge / this.getTotalCharge()); i++) {
+		for (int i = 0; i < 20 * ((float) charge / this.getTotalCharge()); i++) {
 			if (i == 0) {
 				world.createExplosion((Entity) null, player.getPosX() + (vector3d.x * 7), player.getPosY() + (vector3d.y * 7), player.getPosZ() + (vector3d.z * 7), 3.0F * ((float) charge / this.getTotalCharge()), Explosion.Mode.DESTROY);
 			} else {
@@ -98,7 +98,7 @@ public class ElectromagneticEjectionGunItem extends Item {
 			}
 		}
 
-		for (int i = 0; i < 50 * ((float) charge / this.getTotalCharge()); i++) {
+		for (int i = 0; i < 100 * ((float) charge / this.getTotalCharge()); i++) {
 			double x = player.getPosX() + vector3d.x * i;
 			double y = player.getPosY() + vector3d.y * i;
 			double z = player.getPosZ() + vector3d.z * i;

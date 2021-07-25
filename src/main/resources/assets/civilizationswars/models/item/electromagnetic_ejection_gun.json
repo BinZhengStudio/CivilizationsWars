@@ -1,10 +1,10 @@
 {
 	"credit": "Made by FengMing",
 	"textures": {
-		"0": "civilizationswars:item/handle",
-		"2": "civilizationswars:item/trigger",
-		"3": "civilizationswars:item/barrel",
-		"4": "civilizationswars:item/front_sight",
+		"0": "civilizationswars:item/electromagnetic_ejection_gun_handle",
+		"2": "civilizationswars:item/electromagnetic_ejection_gun_trigger",
+		"3": "civilizationswars:item/electromagnetic_ejection_gun_barrel",
+		"4": "civilizationswars:item/electromagnetic_ejection_gun_front_sight",
 		"particle": "texture/handle"
 	},
 	"elements": [

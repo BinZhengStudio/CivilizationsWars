@@ -1,0 +1,7 @@
+{
+  "variants": {
+    "": {
+      "model": "civilizationswars:block/catapult_controller"
+    }
+  }
+}

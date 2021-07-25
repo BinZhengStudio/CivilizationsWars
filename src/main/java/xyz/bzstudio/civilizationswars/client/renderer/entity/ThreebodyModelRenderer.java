@@ -27,7 +27,11 @@ public class ThreebodyModelRenderer extends EntityRenderer<ThreebodyModelEntity>
 	public void render(ThreebodyModelEntity entityIn, float entityYaw, float partialTicks, MatrixStack matrixStackIn, IRenderTypeBuffer bufferIn, int packedLightIn) {
 		super.render(entityIn, entityYaw, partialTicks, matrixStackIn, bufferIn, packedLightIn);
 		matrixStackIn.push();
+		matrixStackIn.scale(4.0F, 4.0F, 4.0F);
 		IVertexBuilder builder = bufferIn.getBuffer(this.model.getRenderType(this.getEntityTexture(entityIn)));
+		float limbSwing = (float) Math.asin((entityIn.rawZ - entityIn.getPosZ()) / 49);
+		float headPitch = (float) Math.asin((entityIn.getPosX() - entityIn.rawX) / 49);
+		this.model.setRotationAngles(entityIn, limbSwing, 0.0F, 0.0F, 0.0F, headPitch);
 		this.model.render(matrixStackIn, builder, 200, OverlayTexture.NO_OVERLAY, 1.0F, 1.0F, 1.0F, 1.0F);
 		matrixStackIn.pop();
 	}

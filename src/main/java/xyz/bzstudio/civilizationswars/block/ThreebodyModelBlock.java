@@ -20,8 +20,13 @@ public class ThreebodyModelBlock extends Block {
 	@Override
 	public void onBlockPlacedBy(World worldIn, BlockPos pos, BlockState state, @Nullable LivingEntity placer, ItemStack stack) {
 		if (!worldIn.isRemote) {
-			ThreebodyModelEntity entity = new ThreebodyModelEntity(worldIn, pos.getX(), pos.getY(), pos.getZ());
-			worldIn.addEntity(entity);
+			if (placer != null && placer.isCrouching()) {
+				ThreebodyModelEntity entity = new ThreebodyModelEntity(worldIn, pos.getX() + 0.5D, pos.getY(), pos.getZ() + 0.5D, 1);
+				worldIn.addEntity(entity);
+			} else {
+				ThreebodyModelEntity entity = new ThreebodyModelEntity(worldIn, pos.getX() + 0.5D, pos.getY(), pos.getZ() + 0.5D, 0);
+				worldIn.addEntity(entity);
+			}
 		}
 	}
 }

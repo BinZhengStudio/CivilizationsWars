@@ -130,14 +130,6 @@ public class TwoWayFoilEntity extends AbstractTwoWayFoilEntity {
 				}
 			}
 		}
-
-		AxisAlignedBB axisAlignedBB = new AxisAlignedBB(this.getPosX() - radius, this.getPosY() - radius, this.getPosZ() - radius, this.getPosX() + radius, this.getPosY() + radius, this.getPosZ() + radius);
-		List<ItemEntity> itemEntities = this.world.getEntitiesWithinAABB(ItemEntity.class, axisAlignedBB);
-		for (ItemEntity itemEntity : itemEntities) {
-			if (this.getDistanceSq(itemEntity) < radius * radius) {
-				itemEntity.remove();
-			}
-		}
 	}
 
 	private List<Entity> getEntitiesInRadius() {

@@ -37,6 +37,7 @@
   "gui.civilizationswars.ceramics_maker": "Ceramics Maker",
   "gui.civilizationswars.object_compressor": "Object Compressor",
 
+  "item.civilizationswars.bz_logo": "斌政工作室" ,
   "item.civilizationswars.coil": "Coil" ,
   "item.civilizationswars.copper_ingot":"Copper Ingot" ,
   "item.civilizationswars.copper_nugget": "Copper Ingot" ,
@@ -50,6 +51,10 @@
 
   "itemGroup.civilizationsWars": "ThreebodyIndustry (Preview)",
 
+  "itemTooltip.civilizationswars.bz_logo.1": "斌政工作室2021一周年巨献（划掉）",
+  "itemTooltip.civilizationswars.bz_logo.2": "三体工业——文明之间的战争（预览版）",
+  "itemTooltip.civilizationswars.bz_logo.3": "因为时间太紧，只能搞一个预览版",
+  "itemTooltip.civilizationswars.bz_logo.4": "希望大家可以支持我们，未来我们将带来完整的模组",
   "itemTooltip.civilizationswars.catapult_controller.1": "需要与光粒弹射器配套使用",
   "itemTooltip.civilizationswars.catapult_controller.2": "右键打开GUI，可调整光粒的偏转角度",
   "itemTooltip.civilizationswars.catapult_controller.3": "需要发射口连接光粒弹射器才能使用",

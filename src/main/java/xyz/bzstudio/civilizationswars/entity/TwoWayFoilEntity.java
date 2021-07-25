@@ -43,8 +43,10 @@ public class TwoWayFoilEntity extends AbstractTwoWayFoilEntity {
 	@Override
 	public void tick() {
 		if (this.impacted) {
-			this.destroyBlock();
-			this.killEntity();
+			if (!this.world.isRemote) {
+				this.destroyBlock();
+				this.killEntity();
+			}
 			if (this.getEntitiesInRadius().isEmpty() || this.life <= 0) {
 				for (Entity entity : this.getEntitiesInRadius()) {
 					entity.setNoGravity(false);
@@ -126,14 +128,6 @@ public class TwoWayFoilEntity extends AbstractTwoWayFoilEntity {
 						}
 					}
 				}
-			}
-		}
-
-		AxisAlignedBB axisAlignedBB = new AxisAlignedBB(this.getPosX() - radius, this.getPosY() - radius, this.getPosZ() - radius, this.getPosX() + radius, this.getPosY() + radius, this.getPosZ() + radius);
-		List<ItemEntity> itemEntities = this.world.getEntitiesWithinAABB(ItemEntity.class, axisAlignedBB);
-		for (ItemEntity itemEntity : itemEntities) {
-			if (this.getDistanceSq(itemEntity) < radius * radius) {
-				itemEntity.remove();
 			}
 		}
 	}

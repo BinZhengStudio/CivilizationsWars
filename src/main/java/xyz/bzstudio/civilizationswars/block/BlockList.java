@@ -17,6 +17,7 @@ public class BlockList {
 	public static final Block CATAPULT_CONTROLLER = register("catapult_controller", new CatapultControllerBlock());
 	public static final Block ELECTROMAGNETIC_CATAPULT = register("electromagnetic_catapult", new ElectromagneticCatapultBlock());
 	public static final Block OBJECT_COMPRESSOR = register("object_compressor", new ObjectCompressorBlock());
+	public static final Block THREEBODY_MODEL = register("threebody_model", new ThreebodyModelBlock());
 
 	private static Block register(String name, Block block) {
 		BLOCKS.register(name, () -> block);

@@ -33,7 +33,7 @@ public class TwoWayFoilRenderer extends EntityRenderer<TwoWayFoilEntity> {
 		matrixStackIn.push();
 		if (!entityIn.isImpacted()) {
 			IVertexBuilder ivertexbuilder = bufferIn.getBuffer(RenderType.getEntityTranslucentCull(this.getEntityTexture(entityIn)));
-			this.model.render(matrixStackIn, ivertexbuilder, packedLightIn, OverlayTexture.NO_OVERLAY, 1.0F, 1.0F, 1.0F, 1.0F);
+			this.model.render(matrixStackIn, ivertexbuilder, 200, OverlayTexture.NO_OVERLAY, 1.0F, 1.0F, 1.0F, 1.0F);
 		}
 		matrixStackIn.pop();
 	}

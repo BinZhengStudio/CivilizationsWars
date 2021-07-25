@@ -4,8 +4,7 @@
 		"0": "civilizationswars:item/electromagnetic_ejection_gun_handle",
 		"2": "civilizationswars:item/electromagnetic_ejection_gun_trigger",
 		"3": "civilizationswars:item/electromagnetic_ejection_gun_barrel",
-		"4": "civilizationswars:item/electromagnetic_ejection_gun_front_sight",
-		"particle": "texture/handle"
+		"4": "civilizationswars:item/electromagnetic_ejection_gun_front_sight"
 	},
 	"elements": [
 		{

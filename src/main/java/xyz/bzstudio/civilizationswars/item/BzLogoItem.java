@@ -13,8 +13,8 @@ import java.util.List;
 
 public class BzLogoItem extends Item {
 
-	public BzLogoItem(Properties properties) {
-		super(properties);
+	public BzLogoItem() {
+		super(new Item.Properties().group(ItemGroupList.TAB_CIVILIZATIONS_WARS));
 	}
 
 	public void addInformation(ItemStack stack, @Nullable World worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn) {

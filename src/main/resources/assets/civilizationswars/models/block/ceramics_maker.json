@@ -1,0 +1,59 @@
+{
+	"credit": "Made by FengMing",
+	"parent": "minecraft:block/block",
+	"texture_size": [64, 64],
+	"textures": {
+		"0": "civilizationswars:block/ceramics_maker",
+		"particle": "civilizationswars:block/ceramics_maker"
+	},
+	"elements": [
+		{
+			"from": [0, 0, 0],
+			"to": [16, 1, 16],
+			"faces": {
+				"north": {"uv": [7, 5.75, 11, 6], "texture": "#0"},
+				"east": {"uv": [9, 1.5, 13, 1.75], "texture": "#0"},
+				"south": {"uv": [9, 1.75, 13, 2], "texture": "#0"},
+				"west": {"uv": [9, 2, 13, 2.25], "texture": "#0"},
+				"up": {"uv": [4, 4, 0, 0], "texture": "#0"},
+				"down": {"uv": [4, 4, 0, 8], "texture": "#0"}
+			}
+		},
+		{
+			"from": [2, 1, 2],
+			"to": [14, 2, 14],
+			"faces": {
+				"north": {"uv": [9, 2.25, 12, 2.5], "texture": "#0"},
+				"east": {"uv": [9, 2.5, 12, 2.75], "texture": "#0"},
+				"south": {"uv": [9, 2.75, 12, 3], "texture": "#0"},
+				"west": {"uv": [9, 3, 12, 3.25], "texture": "#0"},
+				"up": {"uv": [7, 3, 4, 0], "texture": "#0"},
+				"down": {"uv": [7, 3, 4, 6], "texture": "#0"}
+			}
+		},
+		{
+			"from": [3, 2, 3],
+			"to": [13, 5, 13],
+			"faces": {
+				"north": {"uv": [6, 8.5, 8.5, 9.25], "texture": "#0"},
+				"east": {"uv": [8.5, 8.5, 11, 9.25], "texture": "#0"},
+				"south": {"uv": [9, 0, 11.5, 0.75], "texture": "#0"},
+				"west": {"uv": [9, 0.75, 11.5, 1.5], "texture": "#0"},
+				"up": {"uv": [6.5, 8.5, 4, 6], "texture": "#0"},
+				"down": {"uv": [9, 6, 6.5, 8.5], "texture": "#0"}
+			}
+		},
+		{
+			"from": [4, 5, 4],
+			"to": [12, 12, 12],
+			"faces": {
+				"north": {"uv": [7, 4, 9, 5.75], "texture": "#0"},
+				"east": {"uv": [0, 8, 2, 9.75], "texture": "#0"},
+				"south": {"uv": [2, 8, 4, 9.75], "texture": "#0"},
+				"west": {"uv": [4, 8.5, 6, 10.25], "texture": "#0"},
+				"up": {"uv": [9, 2, 7, 0], "texture": "#0"},
+				"down": {"uv": [9, 2, 7, 4], "texture": "#0"}
+			}
+		}
+	]
+}

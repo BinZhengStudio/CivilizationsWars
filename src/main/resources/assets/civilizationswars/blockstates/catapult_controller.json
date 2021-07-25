@@ -1,7 +1,29 @@
 {
   "variants": {
-    "": {
+    "facing=east": {
+      "model": "civilizationswars:block/catapult_controller",
+      "x": 90,
+      "y": 90
+    },
+    "facing=west": {
+      "model": "civilizationswars:block/catapult_controller",
+      "x": 90,
+      "y": 270
+    },
+    "facing=south": {
+      "model": "civilizationswars:block/catapult_controller",
+      "x": 270
+    },
+    "facing=north": {
+      "model": "civilizationswars:block/catapult_controller",
+      "x": 90
+    },
+    "facing=up": {
       "model": "civilizationswars:block/catapult_controller"
+    },
+    "facing=down": {
+      "model": "civilizationswars:block/catapult_controller",
+      "x": 180
     }
   }
 }

@@ -27,6 +27,7 @@ public class TwoWayFoilItem extends Item {
 	public ActionResult<ItemStack> onItemRightClick(World worldIn, PlayerEntity playerIn, Hand handIn) {
 		ItemStack itemstack = playerIn.getHeldItem(handIn);
 		worldIn.playSound(playerIn, playerIn.getPosX(), playerIn.getPosY(), playerIn.getPosZ(), SoundEvents.ENTITY_EGG_THROW, SoundCategory.PLAYERS, 0.5F, 0.4F / (random.nextFloat() * 0.4F + 0.8F));
+		playerIn.getCooldownTracker().setCooldown(this, 20);
 		if (!worldIn.isRemote) {
 			Vector3d vector3d = playerIn.getLookVec();
 			TwoWayFoilEntity entity = new TwoWayFoilEntity(playerIn, vector3d.x, vector3d.y, vector3d.z, worldIn);

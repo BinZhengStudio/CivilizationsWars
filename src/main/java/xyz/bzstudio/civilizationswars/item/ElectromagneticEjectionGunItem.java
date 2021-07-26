@@ -59,7 +59,7 @@ public class ElectromagneticEjectionGunItem extends Item {
 	}
 
 	public int getTotalCharge() {
-		return 114514;
+		return 100000;
 	}
 
 	public int getCharge(ItemStack stack) {

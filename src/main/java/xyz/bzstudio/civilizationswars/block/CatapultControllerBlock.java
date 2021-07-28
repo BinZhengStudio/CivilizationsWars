@@ -65,12 +65,10 @@ public class CatapultControllerBlock extends ContainerBlock {
 				LightParticleEntity entity = new LightParticleEntity(player, spawnPos, facing.getXOffset() + accelX, facing.getYOffset() + accelY, facing.getZOffset() + accelZ, LightParticleEntity.MAX_EXPLOSION_POWER * stackSize / MAX_STACK_SIZE, world);
 				world.addEntity(entity);
 			} else {
-				try {
-					throw new Exception("Fuck @#@! Number Incorrect!");
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
+				LOGGER.warn("Protected TeaCon 2021, prevented an incorrect packet.");
 			}
+		} else {
+			LOGGER.warn("Protected TeaCon 2021, prevented an incorrect packet.");
 		}
 	}
 

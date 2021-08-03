@@ -73,7 +73,9 @@ public class CeramicsMakerContainer extends Container {
 	@Override
 	public void onContainerClosed(PlayerEntity playerIn) {
 		super.onContainerClosed(playerIn);
-		this.inventory.closeInventory(playerIn);
+		if (this.inventory instanceof CeramicsMakerTileEntity) {
+			this.inventory.closeInventory(playerIn);
+		}
 	}
 
 	@Override

@@ -24,7 +24,7 @@ public class ObjectCompressorBlock extends ContainerBlock {
 
 	@Override
 	public ActionResultType onBlockActivated(BlockState state, World worldIn, BlockPos pos, PlayerEntity player, Hand handIn, BlockRayTraceResult hit) {
-		if (!worldIn.isRemote && state.getBlock() == this) {
+		if (!worldIn.isRemote && state.getBlock() == this && worldIn.getTileEntity(pos) instanceof ObjectCompressorTileEntity) {
 			ObjectCompressorTileEntity tileEntity = (ObjectCompressorTileEntity) worldIn.getTileEntity(pos);
 			NetworkHooks.openGui((ServerPlayerEntity) player, tileEntity, (buf) -> buf.writeBlockPos(tileEntity.getPos()));
 			return ActionResultType.CONSUME;

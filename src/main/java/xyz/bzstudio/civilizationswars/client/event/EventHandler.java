@@ -1,4 +1,4 @@
-package xyz.bzstudio.civilizationswars.client.event.handler;
+package xyz.bzstudio.civilizationswars.client.event;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.util.Hand;

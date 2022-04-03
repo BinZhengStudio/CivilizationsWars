@@ -17,9 +17,9 @@ version="${file.jarVersion}" #mandatory
 # A display name for the mod
 displayName="Civilizations Wars" #mandatory
 # A URL to query for updates for this mod. See the JSON update specification https://mcforge.readthedocs.io/en/latest/gettingstarted/autoupdate/
-updateJSONURL="https://bzstudio.xyz/civilizationswars/updates.json" #optional
+updateJSONURL="https://bzgzs.cn/civilizationswars/updates.json" #optional
 # A URL for the "homepage" for this mod, displayed in the mod UI
-displayURL="https://bzstudio.xyz/" #optional
+displayURL="https://bzgzs.cn/" #optional
 # A file name (in the root of the mod JAR) containing a logo for display
 logoFile="civilizationswars.png" #optional
 # A text field displayed in the mod UI
